@@ -145,6 +145,7 @@ int main(void)
  */
 void TestTask (void *pvData) {
 	char u8_State = Lok_Foederband_Mitte;
+	char u8_LastState = Lok_Init;
 	char u8_Pfad = Pfad_Links;
 	char u8_Start_Lokalisation = Lok_Foederband_Mitte;  // Soll übergeben werden.
 	char u8_Destination = 0;
@@ -180,80 +181,110 @@ void TestTask (void *pvData) {
 		switch(u8_State)
 			case Lok_Init:
 				// Mögliche Startpositionen
-				if () // Position Föderband Mitte
+				if (u8_Start_Lokalisation == Lok_Foederband_Mitte) // Position Föderband Mitte
 				{
-					resultTake = xSemaphoreTake(Muxtex_Foederband_Mitte, i16_Semaphor_Timer); // Semaphore nehmen vom Föderband
-					if(resultTake != 0)
+					if(Take_Semaphore(Muxtex_Foederband_Mitte)) // Semaphore nehmen vom Föderband
 					{
-
+						FoedMitte();
+						u8_State = Lok_Shifter;
+						u8_LastState = Lok_Init;
 					}
 					else
 					{
-
+						u8_State = Lok_Init;
 					}
 				}
-				else if () // Position Föderband Rechts
+				else if (u8_Start_Lokalisation == Lok_Foederband_Rechts) // Position Föderband Rechts
 				{
-					resultTake = xSemaphoreTake(Muxtex_Foederband_Rechts , i16_Semaphor_Timer); // Semaphore nehmen vom Föderband
-					if(resultTake != 0)
+					if(Take_Semaphore(Muxtex_Foederband_Rechts)) // Semaphore nehmen vom Föderband
 					{
-
+						FoedRechts();
+						u8_State = Lok_Roboter_Rechts;
+						u8_LastState = Lok_Init;
 					}
 					else
 					{
-						// Display Föderband nicht frei
+						u8_State = Lok_Init;
 					}
 				}
-				else if () // Position Föderband Links
+				else if (u8_Start_Lokalisation == Lok_Foederband_Links) // Position Föderband Links
 				{
-					resultTake = xSemaphoreTake(Muxtex_Foederband_Links, i16_Semaphor_Timer); // Semaphore nehmen vom Föderband
-					if(resultTake != 0)
+					if(Take_Semaphore(Muxtex_Foederband_Links)) // Semaphore nehmen vom Föderband
 					{
-
+						FoedLinks();
+						u8_State = Lok_Roboter_Links;
+						u8_LastState = Lok_Init;
 					}
 					else
 					{
-						// Display Föderband nicht frei
+						u8_State = Lok_Init;
 					}
 				}
 				else // Position im Nirevana
 				{
-					//Displays Error
+					string = "Fehler_Nirevana";
+					LCD_DisplayStringXY(30, 30, string);//Displays Error
 				}
 
 
 			break;
 			case Lok_Foederband_Mitte:
 
-				resultTake = xSemaphoreTake(xSemaphore[d_INDEXFORK_LEFT],randomTime); // Semaphore nehmen vom Föderband
-				if()
+				// Shifter wechseln
+				if(Take_Semaphore(Muxtex_Foederband_Links))
 				{
-					//Selbstverweisend Föderband in arbeit
-
-				}
-				else if((u8_AutoPfadWechsel == wahr) && (u8_Pfad == Pfad_Rechts))
-				{
-					//Auf Linken Pfad wechseln
-					if()
+					//Semaphore Freigeben von den Robotern
+					if(u8_LastState == Lok_Roboter_Rechts)
 					{
-						//Semaphore frei von Shifter
+						Give_Semaphore(Muxtex_Roboter_Rechts); //Semaphore Roboter rechts freigeben
+					}
+					else if (u8_LastState == Lok_Roboter_Links)
+					{
+						Give_Semaphore(Muxtex_Roboter_Links);//Semaphore Roboter links freigeben
 					}
 					else
 					{
-						//Warte auf Semaphore
+						// Letzter State war Init!
 					}
+
+					// Auto Pfadwechsel
+					if((u8_AutoPfadWechsel == wahr) && (u8_Pfad == Pfad_Rechts))
+					{
+						u8_Pfad = Pfad_Links; //Auf Linken Pfad wechseln
+					}
+					else if((u8_AutoPfadWechsel == wahr) && (u8_Pfad == Pfad_Links))
+					{
+						u8_Pfad = Pfad_Rechts; //Auf Rechten Pfad wechseln
+					}
+
+					// Shifter ausführen
+					if(u8_Pfad == Pfad_Rechts)
+					{
+						ShifterRechts();
+						u8_State = Lok_Foederband_Rechts;
+						u8_LastState = Lok_Foederband_Mitte;
+					}
+					else
+					{
+						ShifterLinks();
+						u8_State = Lok_Foederband_Links;
+						u8_LastState = Lok_Foederband_Mitte;
+					}
+
 				}
-				else if((u8_AutoPfadWechsel == wahr) && (u8_Pfad == Pfad_Links))
+				else
 				{
-					//Auf Rechten Pfad wechseln
-					//Semaphore frei von Shifter
+					//Warte auf Semaphore
 				}
+
 			break;
 
 			case Lok_Foederband_Rechts:
-				if()
+				if(Take_Semaphore(Muxtex_Roboter_Rechts))
 				{
-					//Warten bis Föderband bei Distanz ankommt
+					Give_Semaphore(Muxtex_Shifter); // Semaphore vom shifter zurückgeben
+					//Semaphore Roboter Rechts nehmen
+					//Roboter Rechts steuern
 				}
 				else if()
 				{
@@ -313,7 +344,7 @@ void TestTask (void *pvData) {
 
 		// End State Machine
 
-		LCD_DisplayStringXY(30, 30, string);
+		//LCD_DisplayStringXY(30, 30, string);
 		vTaskDelay(800);
 	}
 }
@@ -340,14 +371,70 @@ void sendCanMessage (void *pvargs) {
 	}
 }
 
-void writeCanMessage () {
 
-
-	for(;;) {
-
+char Take_Semaphore (xSemaphoreHandle Muxtex_Semaphore, int i16_Semaphor_Timer) {
+	char string[] = "RobRechts";
+	resultTake = xSemaphoreTake(Muxtex_Semaphore, i16_Semaphor_Timer); // Semaphore nehmen vom Föderband
+	if(resultTake != 0)
+	{
+		//string = "Sem_Ok";
+		return 1;
 	}
+	else
+	{
+		//string = "Sem_Besetzt";
+		return 0;
+	}
+	LCD_DisplayStringXY(40, 30, string);
+}
+void give_Semaphore (xSemaphoreHandle Muxtex_Semaphore) {
+	char string[] = "Sem_Zurueck";
+	xSemaphoreGive(Muxtex_Semaphore) ;
+	LCD_DisplayStringXY(50, 30, string);
 }
 
+// Task Positionsfunktionen
+char getYPos_Foed_Mitte () {
+	char string[] = "RobRechts";
+	LCD_DisplayStringXY(50, 30, string);
+}
+char getYPos_Foed_Rechts () {
+	char string[] = "RobRechts";
+	LCD_DisplayStringXY(50, 30, string);
+}
+char getYPos_Foed_Links () {
+	char string[] = "RobRechts";
+	LCD_DisplayStringXY(50, 30, string);
+}
+void RobRechts () {
+	char string[] = "RobRechts";
+	LCD_DisplayStringXY(50, 30, string);
+}
+// Task Funktionen
+void RobLinks () {
+	char string[] = "RobLinks";
+	LCD_DisplayStringXY(50, 30, string);
+}
+void FoedLinks () {
+	char string[] = "FoedLinks";
+	LCD_DisplayStringXY(50, 30, string);
+}
+void FoedRechts () {
+	char string[] = "FoedRechts";
+	LCD_DisplayStringXY(50, 30, string);
+}
+void FoedMitte () {
+	char string[] = "FoedMitte";
+	LCD_DisplayStringXY(50, 30, string);
+}
+void ShifterLinks () {
+	char string[] = "ShifterLinks";
+	LCD_DisplayStringXY(50, 30, string);
+}
+void ShifterRechts() {
+	char string[] = "ShifterRechts";
+	LCD_DisplayStringXY(50, 30, string);
+}
 /**
  * @brief		task writeCanMessage
  */
