@@ -162,8 +162,20 @@ Discarded input sections
  .text          0x00000000        0x0 src\main.o
  .data          0x00000000        0x0 src\main.o
  .bss           0x00000000        0x0 src\main.o
+ .bss.xHandle_ETCSTask2
+                0x00000000        0x4 src\main.o
+ .bss.xHandle_ETCSTask3
+                0x00000000        0x4 src\main.o
  .text.sendCanMessage
                 0x00000000       0x7c src\main.o
+ .text.getYPos_Foed_Mitte
+                0x00000000       0x2c src\main.o
+ .text.getYPos_Foed_Rechts
+                0x00000000       0x2c src\main.o
+ .text.getYPos_Foed_Links
+                0x00000000       0x2c src\main.o
+ .text.RobLinks
+                0x00000000       0x28 src\main.o
  .text.writeCanMessage
                 0x00000000       0xf8 src\main.o
  .text          0x00000000        0x0 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-malloc.o)
@@ -841,7 +853,7 @@ LOAD ..\Libraries\libFreeRTOS.a
                 0x08000000                g_pfnVectors
                 0x08000188                . = ALIGN (0x4)
 
-.text           0x08000188     0x4ebc
+.text           0x08000188     0x52d8
                 0x08000188                . = ALIGN (0x4)
  *(.text)
  .text          0x08000188       0x40 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
@@ -945,458 +957,478 @@ LOAD ..\Libraries\libFreeRTOS.a
                 0x08000280                DMA1_Stream3_IRQHandler
  .text.LCD_Init
                 0x08000298        0xc src\main.o
- .text.main     0x080002a4      0x198 src\main.o
+ .text.main     0x080002a4      0x140 src\main.o
                 0x080002a4                main
  .text.TestTask
-                0x0800043c       0x80 src\main.o
-                0x0800043c                TestTask
+                0x080003e4      0x358 src\main.o
+                0x080003e4                TestTask
+ .text.Take_Semaphore
+                0x0800073c       0x4c src\main.o
+                0x0800073c                Take_Semaphore
+ .text.Give_Semaphore
+                0x08000788       0x3c src\main.o
+                0x08000788                Give_Semaphore
+ .text.RobRechts
+                0x080007c4       0x28 src\main.o
+                0x080007c4                RobRechts
+ .text.FoedLinks
+                0x080007ec       0x28 src\main.o
+                0x080007ec                FoedLinks
+ .text.FoedRechts
+                0x08000814       0x30 src\main.o
+                0x08000814                FoedRechts
+ .text.FoedMitte
+                0x08000844       0x28 src\main.o
+                0x08000844                FoedMitte
+ .text.Shifter  0x0800086c       0x34 src\main.o
+                0x0800086c                Shifter
  .text.readCanMessageIRQ
-                0x080004bc       0x50 src\main.o
-                0x080004bc                readCanMessageIRQ
- .text.malloc   0x0800050c       0x10 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-malloc.o)
-                0x0800050c                malloc
- .text.free     0x0800051c       0x10 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-malloc.o)
-                0x0800051c                free
- .text._free_r  0x0800052c       0x9c c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-freer.o)
-                0x0800052c                _free_r
+                0x080008a0       0x50 src\main.o
+                0x080008a0                readCanMessageIRQ
+ .text.malloc   0x080008f0       0x10 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-malloc.o)
+                0x080008f0                malloc
+ .text.free     0x08000900       0x10 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-malloc.o)
+                0x08000900                free
+ .text._free_r  0x08000910       0x9c c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-freer.o)
+                0x08000910                _free_r
  .text._malloc_r
-                0x080005c8       0xbc c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-mallocr.o)
-                0x080005c8                _malloc_r
- .text._sbrk_r  0x08000684       0x20 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-sbrkr.o)
-                0x08000684                _sbrk_r
+                0x080009ac       0xbc c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-mallocr.o)
+                0x080009ac                _malloc_r
+ .text._sbrk_r  0x08000a68       0x20 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-sbrkr.o)
+                0x08000a68                _sbrk_r
  .text.__malloc_lock
-                0x080006a4        0x2 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-mlock.o)
-                0x080006a4                __malloc_lock
+                0x08000a88        0x2 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-mlock.o)
+                0x08000a88                __malloc_lock
  .text.__malloc_unlock
-                0x080006a6        0x2 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-mlock.o)
-                0x080006a6                __malloc_unlock
+                0x08000a8a        0x2 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-mlock.o)
+                0x08000a8a                __malloc_unlock
  .text.RCC_AHB1PeriphClockCmd
-                0x080006a8       0x54 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
-                0x080006a8                RCC_AHB1PeriphClockCmd
+                0x08000a8c       0x54 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
+                0x08000a8c                RCC_AHB1PeriphClockCmd
  .text.RCC_AHB3PeriphClockCmd
-                0x080006fc       0x54 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
-                0x080006fc                RCC_AHB3PeriphClockCmd
+                0x08000ae0       0x54 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
+                0x08000ae0                RCC_AHB3PeriphClockCmd
  .text.RCC_APB2PeriphClockCmd
-                0x08000750       0x54 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
-                0x08000750                RCC_APB2PeriphClockCmd
+                0x08000b34       0x54 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
+                0x08000b34                RCC_APB2PeriphClockCmd
  .text.RCC_AHB1PeriphResetCmd
-                0x080007a4       0x54 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
-                0x080007a4                RCC_AHB1PeriphResetCmd
+                0x08000b88       0x54 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
+                0x08000b88                RCC_AHB1PeriphResetCmd
  .text.NVIC_PriorityGroupConfig
-                0x080007f8       0x28 ..\Libraries\libBSP.a(misc.o)
-                0x080007f8                NVIC_PriorityGroupConfig
+                0x08000bdc       0x28 ..\Libraries\libBSP.a(misc.o)
+                0x08000bdc                NVIC_PriorityGroupConfig
  .text.NVIC_Init
-                0x08000820       0xe4 ..\Libraries\libBSP.a(misc.o)
-                0x08000820                NVIC_Init
+                0x08000c04       0xe4 ..\Libraries\libBSP.a(misc.o)
+                0x08000c04                NVIC_Init
  .text.SystemInit
-                0x08000904       0xb0 ..\Libraries\libBSP.a(system_stm32f4xx.o)
-                0x08000904                SystemInit
+                0x08000ce8       0xb0 ..\Libraries\libBSP.a(system_stm32f4xx.o)
+                0x08000ce8                SystemInit
  .text.SetSysClock
-                0x080009b4      0x188 ..\Libraries\libBSP.a(system_stm32f4xx.o)
+                0x08000d98      0x188 ..\Libraries\libBSP.a(system_stm32f4xx.o)
  .text.SSD1963_Delay
-                0x08000b3c       0x38 ..\Libraries\libBSP.a(ssd1963.o)
+                0x08000f20       0x38 ..\Libraries\libBSP.a(ssd1963.o)
  .text.SSD1963_Init
-                0x08000b74      0x1a8 ..\Libraries\libBSP.a(ssd1963.o)
-                0x08000b74                SSD1963_Init
+                0x08000f58      0x1a8 ..\Libraries\libBSP.a(ssd1963.o)
+                0x08000f58                SSD1963_Init
  .text.SSD1963_SetArea
-                0x08000d1c       0x90 ..\Libraries\libBSP.a(ssd1963.o)
-                0x08000d1c                SSD1963_SetArea
+                0x08001100       0x90 ..\Libraries\libBSP.a(ssd1963.o)
+                0x08001100                SSD1963_SetArea
  .text.SSD1963_FillArea
-                0x08000dac       0x64 ..\Libraries\libBSP.a(ssd1963.o)
-                0x08000dac                SSD1963_FillArea
+                0x08001190       0x64 ..\Libraries\libBSP.a(ssd1963.o)
+                0x08001190                SSD1963_FillArea
  .text.SSD1963_WriteArea
-                0x08000e10       0x6c ..\Libraries\libBSP.a(ssd1963.o)
-                0x08000e10                SSD1963_WriteArea
+                0x080011f4       0x6c ..\Libraries\libBSP.a(ssd1963.o)
+                0x080011f4                SSD1963_WriteArea
  .text.SSD1963_DisplayOn
-                0x08000e7c       0x10 ..\Libraries\libBSP.a(ssd1963.o)
-                0x08000e7c                SSD1963_DisplayOn
+                0x08001260       0x10 ..\Libraries\libBSP.a(ssd1963.o)
+                0x08001260                SSD1963_DisplayOn
  .text.SSD1963_GetDeviceDescriptorBlock
-                0x08000e8c       0x40 ..\Libraries\libBSP.a(ssd1963.o)
-                0x08000e8c                SSD1963_GetDeviceDescriptorBlock
+                0x08001270       0x40 ..\Libraries\libBSP.a(ssd1963.o)
+                0x08001270                SSD1963_GetDeviceDescriptorBlock
  .text.CARME_Init
-                0x08000ecc       0xf8 ..\Libraries\libBSP.a(carme.o)
-                0x08000ecc                CARME_Init
+                0x080012b0       0xf8 ..\Libraries\libBSP.a(carme.o)
+                0x080012b0                CARME_Init
  .text.CARME_FSMC_GPIO_Init
-                0x08000fc4       0x60 ..\Libraries\libBSP.a(carme.o)
+                0x080013a8       0x60 ..\Libraries\libBSP.a(carme.o)
  .text.CARME_FSMC_Init
-                0x08001024      0x160 ..\Libraries\libBSP.a(carme.o)
+                0x08001408      0x160 ..\Libraries\libBSP.a(carme.o)
  .text.CARME_AGPIO_Init
-                0x08001184       0x2c ..\Libraries\libBSP.a(carme.o)
+                0x08001568       0x2c ..\Libraries\libBSP.a(carme.o)
  .text.CARME_GPIO_Init
-                0x080011b0      0x248 ..\Libraries\libBSP.a(carme.o)
-                0x080011b0                CARME_GPIO_Init
+                0x08001594      0x248 ..\Libraries\libBSP.a(carme.o)
+                0x08001594                CARME_GPIO_Init
  .text.CARME_AGPIO_Set
-                0x080013f8       0x84 ..\Libraries\libBSP.a(carme.o)
-                0x080013f8                CARME_AGPIO_Set
+                0x080017dc       0x84 ..\Libraries\libBSP.a(carme.o)
+                0x080017dc                CARME_AGPIO_Set
  .text.CARME_LED_Red_Set
-                0x0800147c       0x14 ..\Libraries\libBSP.a(carme.o)
-                0x0800147c                CARME_LED_Red_Set
+                0x08001860       0x14 ..\Libraries\libBSP.a(carme.o)
+                0x08001860                CARME_LED_Red_Set
  .text.CARME_LED_Red_Reset
-                0x08001490       0x14 ..\Libraries\libBSP.a(carme.o)
-                0x08001490                CARME_LED_Red_Reset
+                0x08001874       0x14 ..\Libraries\libBSP.a(carme.o)
+                0x08001874                CARME_LED_Red_Reset
  .text.CARME_CAN_Write_Register
-                0x080014a4       0x34 ..\Libraries\libBSP.a(can.o)
+                0x08001888       0x34 ..\Libraries\libBSP.a(can.o)
  .text.CARME_CAN_Read_Register
-                0x080014d8       0x34 ..\Libraries\libBSP.a(can.o)
+                0x080018bc       0x34 ..\Libraries\libBSP.a(can.o)
  .text.CARME_CAN_InitSTM
-                0x0800150c       0x88 ..\Libraries\libBSP.a(can.o)
+                0x080018f0       0x88 ..\Libraries\libBSP.a(can.o)
  .text.CARME_CAN_Init
-                0x08001594       0xc4 ..\Libraries\libBSP.a(can.o)
-                0x08001594                CARME_CAN_Init
+                0x08001978       0xc4 ..\Libraries\libBSP.a(can.o)
+                0x08001978                CARME_CAN_Init
  .text.CARME_CAN_InitI
-                0x08001658       0x38 ..\Libraries\libBSP.a(can.o)
-                0x08001658                CARME_CAN_InitI
+                0x08001a3c       0x38 ..\Libraries\libBSP.a(can.o)
+                0x08001a3c                CARME_CAN_InitI
  .text.CARME_CAN_RegisterIRQCallback
-                0x08001690       0x28 ..\Libraries\libBSP.a(can.o)
-                0x08001690                CARME_CAN_RegisterIRQCallback
+                0x08001a74       0x28 ..\Libraries\libBSP.a(can.o)
+                0x08001a74                CARME_CAN_RegisterIRQCallback
  .text.CARME_CAN_SetMode
-                0x080016b8       0x58 ..\Libraries\libBSP.a(can.o)
-                0x080016b8                CARME_CAN_SetMode
+                0x08001a9c       0x58 ..\Libraries\libBSP.a(can.o)
+                0x08001a9c                CARME_CAN_SetMode
  .text.CARME_CAN_Read
-                0x08001710      0x188 ..\Libraries\libBSP.a(can.o)
-                0x08001710                CARME_CAN_Read
+                0x08001af4      0x188 ..\Libraries\libBSP.a(can.o)
+                0x08001af4                CARME_CAN_Read
  .text.EXTI9_5_IRQHandler
-                0x08001898      0x174 ..\Libraries\libBSP.a(can.o)
-                0x08001898                EXTI9_5_IRQHandler
+                0x08001c7c      0x174 ..\Libraries\libBSP.a(can.o)
+                0x08001c7c                EXTI9_5_IRQHandler
  .text.CARME_CAN_SetBusTiming
-                0x08001a0c       0x30 ..\Libraries\libBSP.a(can.o)
+                0x08001df0       0x30 ..\Libraries\libBSP.a(can.o)
  .text.CARME_CAN_SetBaudrate
-                0x08001a3c       0x9c ..\Libraries\libBSP.a(can.o)
-                0x08001a3c                CARME_CAN_SetBaudrate
+                0x08001e20       0x9c ..\Libraries\libBSP.a(can.o)
+                0x08001e20                CARME_CAN_SetBaudrate
  .text.SYSCFG_EXTILineConfig
-                0x08001ad8       0xb0 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
-                0x08001ad8                SYSCFG_EXTILineConfig
+                0x08001ebc       0xb0 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
+                0x08001ebc                SYSCFG_EXTILineConfig
  .text.GPIO_DeInit
-                0x08001b88      0x1c8 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
-                0x08001b88                GPIO_DeInit
+                0x08001f6c      0x1c8 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+                0x08001f6c                GPIO_DeInit
  .text.GPIO_Init
-                0x08001d50      0x144 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
-                0x08001d50                GPIO_Init
+                0x08002134      0x144 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+                0x08002134                GPIO_Init
  .text.GPIO_StructInit
-                0x08001e94       0x3c ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
-                0x08001e94                GPIO_StructInit
+                0x08002278       0x3c ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+                0x08002278                GPIO_StructInit
  .text.GPIO_WriteBit
-                0x08001ed0       0x30 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
-                0x08001ed0                GPIO_WriteBit
+                0x080022b4       0x30 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+                0x080022b4                GPIO_WriteBit
  .text.GPIO_PinAFConfig
-                0x08001f00       0xa8 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
-                0x08001f00                GPIO_PinAFConfig
+                0x080022e4       0xa8 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+                0x080022e4                GPIO_PinAFConfig
  .text.FSMC_NORSRAMDeInit
-                0x08001fa8       0x5c ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
-                0x08001fa8                FSMC_NORSRAMDeInit
+                0x0800238c       0x5c ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
+                0x0800238c                FSMC_NORSRAMDeInit
  .text.FSMC_NORSRAMInit
-                0x08002004      0x150 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
-                0x08002004                FSMC_NORSRAMInit
+                0x080023e8      0x150 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
+                0x080023e8                FSMC_NORSRAMInit
  .text.FSMC_NORSRAMCmd
-                0x08002154       0x54 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
-                0x08002154                FSMC_NORSRAMCmd
+                0x08002538       0x54 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
+                0x08002538                FSMC_NORSRAMCmd
  .text.EXTI_Init
-                0x080021a8      0x138 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
-                0x080021a8                EXTI_Init
+                0x0800258c      0x138 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
+                0x0800258c                EXTI_Init
  .text.EXTI_GetITStatus
-                0x080022e0       0x3c ..\Libraries\libBSP.a(stm32f4xx_exti.o)
-                0x080022e0                EXTI_GetITStatus
+                0x080026c4       0x3c ..\Libraries\libBSP.a(stm32f4xx_exti.o)
+                0x080026c4                EXTI_GetITStatus
  .text.EXTI_ClearITPendingBit
-                0x0800231c       0x20 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
-                0x0800231c                EXTI_ClearITPendingBit
+                0x08002700       0x20 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
+                0x08002700                EXTI_ClearITPendingBit
  .text.SSD1963_LLD_Init
-                0x0800233c       0x50 ..\Libraries\libBSP.a(ssd1963_lld.o)
-                0x0800233c                SSD1963_LLD_Init
+                0x08002720       0x50 ..\Libraries\libBSP.a(ssd1963_lld.o)
+                0x08002720                SSD1963_LLD_Init
  .text.SSD1963_WriteCommand
-                0x0800238c       0x1c ..\Libraries\libBSP.a(ssd1963_lld.o)
-                0x0800238c                SSD1963_WriteCommand
+                0x08002770       0x1c ..\Libraries\libBSP.a(ssd1963_lld.o)
+                0x08002770                SSD1963_WriteCommand
  .text.SSD1963_WriteData
-                0x080023a8       0x1c ..\Libraries\libBSP.a(ssd1963_lld.o)
-                0x080023a8                SSD1963_WriteData
+                0x0800278c       0x1c ..\Libraries\libBSP.a(ssd1963_lld.o)
+                0x0800278c                SSD1963_WriteData
  .text.SSD1963_ReadData
-                0x080023c4       0x14 ..\Libraries\libBSP.a(ssd1963_lld.o)
-                0x080023c4                SSD1963_ReadData
+                0x080027a8       0x14 ..\Libraries\libBSP.a(ssd1963_lld.o)
+                0x080027a8                SSD1963_ReadData
  .text.LCD_WriteArea
-                0x080023d8       0x28 ..\Libraries\libsGUI.a(text.o)
+                0x080027bc       0x28 ..\Libraries\libsGUI.a(text.o)
  .text.LCD_DrawChar
-                0x08002400      0x134 ..\Libraries\libsGUI.a(text.o)
+                0x080027e4      0x134 ..\Libraries\libsGUI.a(text.o)
  .text.LCD_SetFont
-                0x08002534       0x20 ..\Libraries\libsGUI.a(text.o)
-                0x08002534                LCD_SetFont
+                0x08002918       0x20 ..\Libraries\libsGUI.a(text.o)
+                0x08002918                LCD_SetFont
  .text.LCD_DisplayCharXY
-                0x08002554       0x84 ..\Libraries\libsGUI.a(text.o)
-                0x08002554                LCD_DisplayCharXY
+                0x08002938       0x84 ..\Libraries\libsGUI.a(text.o)
+                0x08002938                LCD_DisplayCharXY
  .text.LCD_DisplayStringXY
-                0x080025d8       0x50 ..\Libraries\libsGUI.a(text.o)
-                0x080025d8                LCD_DisplayStringXY
+                0x080029bc       0x50 ..\Libraries\libsGUI.a(text.o)
+                0x080029bc                LCD_DisplayStringXY
  .text.xTaskGenericCreate
-                0x08002628      0x1c0 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08002628                xTaskGenericCreate
+                0x08002a0c      0x1c0 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08002a0c                xTaskGenericCreate
  .text.vTaskDelay
-                0x080027e8       0x5c ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x080027e8                vTaskDelay
+                0x08002bcc       0x5c ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08002bcc                vTaskDelay
  .text.vTaskStartScheduler
-                0x08002844       0x88 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08002844                vTaskStartScheduler
+                0x08002c28       0x88 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08002c28                vTaskStartScheduler
  .text.vTaskSuspendAll
-                0x080028cc       0x24 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x080028cc                vTaskSuspendAll
+                0x08002cb0       0x24 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08002cb0                vTaskSuspendAll
  .text.xTaskResumeAll
-                0x080028f0      0x174 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x080028f0                xTaskResumeAll
+                0x08002cd4      0x174 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08002cd4                xTaskResumeAll
  .text.xTaskGetTickCount
-                0x08002a64       0x28 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08002a64                xTaskGetTickCount
+                0x08002e48       0x28 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08002e48                xTaskGetTickCount
  .text.xTaskIncrementTick
-                0x08002a8c      0x248 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08002a8c                xTaskIncrementTick
+                0x08002e70      0x248 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08002e70                xTaskIncrementTick
  .text.vTaskSwitchContext
-                0x08002cd4      0x164 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08002cd4                vTaskSwitchContext
+                0x080030b8      0x164 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x080030b8                vTaskSwitchContext
  .text.vTaskPlaceOnEventList
-                0x08002e38       0x84 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08002e38                vTaskPlaceOnEventList
+                0x0800321c       0x84 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x0800321c                vTaskPlaceOnEventList
  .text.vTaskPlaceOnEventListRestricted
-                0x08002ebc       0x60 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08002ebc                vTaskPlaceOnEventListRestricted
+                0x080032a0       0x60 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x080032a0                vTaskPlaceOnEventListRestricted
  .text.xTaskRemoveFromEventList
-                0x08002f1c       0xdc ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08002f1c                xTaskRemoveFromEventList
+                0x08003300       0xdc ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08003300                xTaskRemoveFromEventList
  .text.vTaskSetTimeOutState
-                0x08002ff8       0x38 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08002ff8                vTaskSetTimeOutState
+                0x080033dc       0x38 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x080033dc                vTaskSetTimeOutState
  .text.xTaskCheckForTimeOut
-                0x08003030       0xb0 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08003030                xTaskCheckForTimeOut
+                0x08003414       0xb0 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08003414                xTaskCheckForTimeOut
  .text.vTaskMissedYield
-                0x080030e0       0x18 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x080030e0                vTaskMissedYield
+                0x080034c4       0x18 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x080034c4                vTaskMissedYield
  .text.prvIdleTask
-                0x080030f8       0x24 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x080034dc       0x24 ..\Libraries\libFreeRTOS.a(tasks.o)
  .text.prvInitialiseTCBVariables
-                0x0800311c       0xa0 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08003500       0xa0 ..\Libraries\libFreeRTOS.a(tasks.o)
  .text.prvInitialiseTaskLists
-                0x080031bc       0xa4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x080035a0       0xa4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .text.prvCheckTasksWaitingTermination
-                0x08003260       0x9c ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08003644       0x9c ..\Libraries\libFreeRTOS.a(tasks.o)
  .text.prvAddCurrentTaskToDelayedList
-                0x080032fc       0x8c ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x080036e0       0x8c ..\Libraries\libFreeRTOS.a(tasks.o)
  .text.prvAllocateTCBAndStack
-                0x08003388       0x70 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x0800376c       0x70 ..\Libraries\libFreeRTOS.a(tasks.o)
  .text.prvDeleteTCB
-                0x080033f8       0x20 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x080037dc       0x20 ..\Libraries\libFreeRTOS.a(tasks.o)
  .text.xTaskGetCurrentTaskHandle
-                0x08003418       0x20 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08003418                xTaskGetCurrentTaskHandle
+                0x080037fc       0x20 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x080037fc                xTaskGetCurrentTaskHandle
  .text.xTaskGetSchedulerState
-                0x08003438       0x48 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08003438                xTaskGetSchedulerState
+                0x0800381c       0x48 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x0800381c                xTaskGetSchedulerState
  .text.vTaskPriorityInherit
-                0x08003480       0xe8 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08003480                vTaskPriorityInherit
+                0x08003864       0xe8 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08003864                vTaskPriorityInherit
  .text.vTaskPriorityDisinherit
-                0x08003568       0x90 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x08003568                vTaskPriorityDisinherit
+                0x0800394c       0x90 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x0800394c                vTaskPriorityDisinherit
  .text.xQueueGenericReset
-                0x080035f8       0xc0 ..\Libraries\libFreeRTOS.a(queue.o)
-                0x080035f8                xQueueGenericReset
+                0x080039dc       0xc0 ..\Libraries\libFreeRTOS.a(queue.o)
+                0x080039dc                xQueueGenericReset
  .text.xQueueGenericCreate
-                0x080036b8       0x90 ..\Libraries\libFreeRTOS.a(queue.o)
-                0x080036b8                xQueueGenericCreate
+                0x08003a9c       0x90 ..\Libraries\libFreeRTOS.a(queue.o)
+                0x08003a9c                xQueueGenericCreate
  .text.xQueueCreateMutex
-                0x08003748       0xac ..\Libraries\libFreeRTOS.a(queue.o)
-                0x08003748                xQueueCreateMutex
+                0x08003b2c       0xac ..\Libraries\libFreeRTOS.a(queue.o)
+                0x08003b2c                xQueueCreateMutex
  .text.xQueueGenericSend
-                0x080037f4      0x178 ..\Libraries\libFreeRTOS.a(queue.o)
-                0x080037f4                xQueueGenericSend
+                0x08003bd8      0x178 ..\Libraries\libFreeRTOS.a(queue.o)
+                0x08003bd8                xQueueGenericSend
  .text.xQueueGenericSendFromISR
-                0x0800396c       0xe8 ..\Libraries\libFreeRTOS.a(queue.o)
-                0x0800396c                xQueueGenericSendFromISR
+                0x08003d50       0xe8 ..\Libraries\libFreeRTOS.a(queue.o)
+                0x08003d50                xQueueGenericSendFromISR
  .text.xQueueGenericReceive
-                0x08003a54      0x1b8 ..\Libraries\libFreeRTOS.a(queue.o)
-                0x08003a54                xQueueGenericReceive
+                0x08003e38      0x1b8 ..\Libraries\libFreeRTOS.a(queue.o)
+                0x08003e38                xQueueGenericReceive
  .text.prvCopyDataToQueue
-                0x08003c0c       0xdc ..\Libraries\libFreeRTOS.a(queue.o)
+                0x08003ff0       0xdc ..\Libraries\libFreeRTOS.a(queue.o)
  .text.prvCopyDataFromQueue
-                0x08003ce8       0x50 ..\Libraries\libFreeRTOS.a(queue.o)
+                0x080040cc       0x50 ..\Libraries\libFreeRTOS.a(queue.o)
  .text.prvUnlockQueue
-                0x08003d38       0xa0 ..\Libraries\libFreeRTOS.a(queue.o)
+                0x0800411c       0xa0 ..\Libraries\libFreeRTOS.a(queue.o)
  .text.prvIsQueueEmpty
-                0x08003dd8       0x34 ..\Libraries\libFreeRTOS.a(queue.o)
+                0x080041bc       0x34 ..\Libraries\libFreeRTOS.a(queue.o)
  .text.prvIsQueueFull
-                0x08003e0c       0x38 ..\Libraries\libFreeRTOS.a(queue.o)
+                0x080041f0       0x38 ..\Libraries\libFreeRTOS.a(queue.o)
  .text.vQueueWaitForMessageRestricted
-                0x08003e44       0x60 ..\Libraries\libFreeRTOS.a(queue.o)
-                0x08003e44                vQueueWaitForMessageRestricted
+                0x08004228       0x60 ..\Libraries\libFreeRTOS.a(queue.o)
+                0x08004228                vQueueWaitForMessageRestricted
  .text.pvPortMalloc
-                0x08003ea4      0x164 ..\Libraries\libFreeRTOS.a(heap_4.o)
-                0x08003ea4                pvPortMalloc
+                0x08004288      0x164 ..\Libraries\libFreeRTOS.a(heap_4.o)
+                0x08004288                pvPortMalloc
  .text.vPortFree
-                0x08004008       0xb8 ..\Libraries\libFreeRTOS.a(heap_4.o)
-                0x08004008                vPortFree
+                0x080043ec       0xb8 ..\Libraries\libFreeRTOS.a(heap_4.o)
+                0x080043ec                vPortFree
  .text.prvHeapInit
-                0x080040c0       0xf8 ..\Libraries\libFreeRTOS.a(heap_4.o)
+                0x080044a4       0xf8 ..\Libraries\libFreeRTOS.a(heap_4.o)
  .text.prvInsertBlockIntoFreeList
-                0x080041b8       0xbc ..\Libraries\libFreeRTOS.a(heap_4.o)
+                0x0800459c       0xbc ..\Libraries\libFreeRTOS.a(heap_4.o)
  .text.pxPortInitialiseStack
-                0x08004274       0x74 ..\Libraries\libFreeRTOS.a(port.o)
-                0x08004274                pxPortInitialiseStack
+                0x08004658       0x74 ..\Libraries\libFreeRTOS.a(port.o)
+                0x08004658                pxPortInitialiseStack
  .text.prvTaskExitError
-                0x080042e8       0x20 ..\Libraries\libFreeRTOS.a(port.o)
+                0x080046cc       0x20 ..\Libraries\libFreeRTOS.a(port.o)
  .text.SVC_Handler
-                0x08004308       0x1c ..\Libraries\libFreeRTOS.a(port.o)
-                0x08004308                SVC_Handler
+                0x080046ec       0x1c ..\Libraries\libFreeRTOS.a(port.o)
+                0x080046ec                SVC_Handler
  .text.prvPortStartFirstTask
-                0x08004324       0x14 ..\Libraries\libFreeRTOS.a(port.o)
+                0x08004708       0x14 ..\Libraries\libFreeRTOS.a(port.o)
  .text.xPortStartScheduler
-                0x08004338      0x128 ..\Libraries\libFreeRTOS.a(port.o)
-                0x08004338                xPortStartScheduler
+                0x0800471c      0x128 ..\Libraries\libFreeRTOS.a(port.o)
+                0x0800471c                xPortStartScheduler
  .text.vPortYield
-                0x08004460       0x20 ..\Libraries\libFreeRTOS.a(port.o)
-                0x08004460                vPortYield
+                0x08004844       0x20 ..\Libraries\libFreeRTOS.a(port.o)
+                0x08004844                vPortYield
  .text.vPortEnterCritical
-                0x08004480       0x2c ..\Libraries\libFreeRTOS.a(port.o)
-                0x08004480                vPortEnterCritical
+                0x08004864       0x2c ..\Libraries\libFreeRTOS.a(port.o)
+                0x08004864                vPortEnterCritical
  .text.vPortExitCritical
-                0x080044ac       0x34 ..\Libraries\libFreeRTOS.a(port.o)
-                0x080044ac                vPortExitCritical
+                0x08004890       0x34 ..\Libraries\libFreeRTOS.a(port.o)
+                0x08004890                vPortExitCritical
  .text.ulPortSetInterruptMask
-                0x080044e0       0x14 ..\Libraries\libFreeRTOS.a(port.o)
-                0x080044e0                ulPortSetInterruptMask
+                0x080048c4       0x14 ..\Libraries\libFreeRTOS.a(port.o)
+                0x080048c4                ulPortSetInterruptMask
  .text.vPortClearInterruptMask
-                0x080044f4        0x8 ..\Libraries\libFreeRTOS.a(port.o)
-                0x080044f4                vPortClearInterruptMask
+                0x080048d8        0x8 ..\Libraries\libFreeRTOS.a(port.o)
+                0x080048d8                vPortClearInterruptMask
  .text.PendSV_Handler
-                0x080044fc       0x50 ..\Libraries\libFreeRTOS.a(port.o)
-                0x080044fc                PendSV_Handler
+                0x080048e0       0x50 ..\Libraries\libFreeRTOS.a(port.o)
+                0x080048e0                PendSV_Handler
  .text.SysTick_Handler
-                0x0800454c       0x2c ..\Libraries\libFreeRTOS.a(port.o)
-                0x0800454c                SysTick_Handler
+                0x08004930       0x2c ..\Libraries\libFreeRTOS.a(port.o)
+                0x08004930                SysTick_Handler
  .text.vPortSetupTimerInterrupt
-                0x08004578       0x40 ..\Libraries\libFreeRTOS.a(port.o)
-                0x08004578                vPortSetupTimerInterrupt
+                0x0800495c       0x40 ..\Libraries\libFreeRTOS.a(port.o)
+                0x0800495c                vPortSetupTimerInterrupt
  .text.vPortEnableVFP
-                0x080045b8       0x14 ..\Libraries\libFreeRTOS.a(port.o)
+                0x0800499c       0x14 ..\Libraries\libFreeRTOS.a(port.o)
  .text.vPortValidateInterruptPriority
-                0x080045cc       0x64 ..\Libraries\libFreeRTOS.a(port.o)
-                0x080045cc                vPortValidateInterruptPriority
+                0x080049b0       0x64 ..\Libraries\libFreeRTOS.a(port.o)
+                0x080049b0                vPortValidateInterruptPriority
  .text.vListInitialise
-                0x08004630       0x40 ..\Libraries\libFreeRTOS.a(list.o)
-                0x08004630                vListInitialise
+                0x08004a14       0x40 ..\Libraries\libFreeRTOS.a(list.o)
+                0x08004a14                vListInitialise
  .text.vListInitialiseItem
-                0x08004670       0x1c ..\Libraries\libFreeRTOS.a(list.o)
-                0x08004670                vListInitialiseItem
+                0x08004a54       0x1c ..\Libraries\libFreeRTOS.a(list.o)
+                0x08004a54                vListInitialiseItem
  .text.vListInsertEnd
-                0x0800468c       0x48 ..\Libraries\libFreeRTOS.a(list.o)
-                0x0800468c                vListInsertEnd
+                0x08004a70       0x48 ..\Libraries\libFreeRTOS.a(list.o)
+                0x08004a70                vListInsertEnd
  .text.vListInsert
-                0x080046d4       0x74 ..\Libraries\libFreeRTOS.a(list.o)
-                0x080046d4                vListInsert
+                0x08004ab8       0x74 ..\Libraries\libFreeRTOS.a(list.o)
+                0x08004ab8                vListInsert
  .text.uxListRemove
-                0x08004748       0x58 ..\Libraries\libFreeRTOS.a(list.o)
-                0x08004748                uxListRemove
+                0x08004b2c       0x58 ..\Libraries\libFreeRTOS.a(list.o)
+                0x08004b2c                uxListRemove
  .text.xTimerCreateTimerTask
-                0x080047a0       0x6c ..\Libraries\libFreeRTOS.a(timers.o)
-                0x080047a0                xTimerCreateTimerTask
+                0x08004b84       0x6c ..\Libraries\libFreeRTOS.a(timers.o)
+                0x08004b84                xTimerCreateTimerTask
  .text.xTimerGenericCommand
-                0x0800480c       0xac ..\Libraries\libFreeRTOS.a(timers.o)
-                0x0800480c                xTimerGenericCommand
+                0x08004bf0       0xac ..\Libraries\libFreeRTOS.a(timers.o)
+                0x08004bf0                xTimerGenericCommand
  .text.prvProcessExpiredTimer
-                0x080048b8       0x7c ..\Libraries\libFreeRTOS.a(timers.o)
+                0x08004c9c       0x7c ..\Libraries\libFreeRTOS.a(timers.o)
  .text.prvTimerTask
-                0x08004934       0x24 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x08004d18       0x24 ..\Libraries\libFreeRTOS.a(timers.o)
  .text.prvProcessTimerOrBlockTask
-                0x08004958       0x74 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x08004d3c       0x74 ..\Libraries\libFreeRTOS.a(timers.o)
  .text.prvGetNextExpireTime
-                0x080049cc       0x54 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x08004db0       0x54 ..\Libraries\libFreeRTOS.a(timers.o)
  .text.prvSampleTimeNow
-                0x08004a20       0x58 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x08004e04       0x58 ..\Libraries\libFreeRTOS.a(timers.o)
  .text.prvInsertTimerInActiveList
-                0x08004a78       0x94 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x08004e5c       0x94 ..\Libraries\libFreeRTOS.a(timers.o)
  .text.prvProcessReceivedCommands
-                0x08004b0c      0x104 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x08004ef0      0x104 ..\Libraries\libFreeRTOS.a(timers.o)
  .text.prvSwitchTimerLists
-                0x08004c10       0xe8 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x08004ff4       0xe8 ..\Libraries\libFreeRTOS.a(timers.o)
  .text.prvCheckForValidListAndQueue
-                0x08004cf8       0x74 ..\Libraries\libFreeRTOS.a(timers.o)
- .text.memcmp   0x08004d6c       0x1e c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcmp.o)
-                0x08004d6c                memcmp
- .text.memcpy   0x08004d8a       0x16 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcpy-stub.o)
-                0x08004d8a                memcpy
- .text.memset   0x08004da0       0x10 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
-                0x08004da0                memset
+                0x080050dc       0x74 ..\Libraries\libFreeRTOS.a(timers.o)
+ .text.memcmp   0x08005150       0x1e c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcmp.o)
+                0x08005150                memcmp
+ .text.memcpy   0x0800516e       0x16 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcpy-stub.o)
+                0x0800516e                memcpy
+ .text.memset   0x08005184       0x10 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
+                0x08005184                memset
  *(.rodata)
- .rodata        0x08004db0       0x9d src\main.o
- *fill*         0x08004e4d        0x3 
- .rodata        0x08004e50      0x1a8 ..\Libraries\libBSP.a(carme.o)
- .rodata        0x08004ff8        0x8 ..\Libraries\libFreeRTOS.a(tasks.o)
- .rodata        0x08005000        0x8 ..\Libraries\libFreeRTOS.a(timers.o)
+ .rodata        0x08005194       0xd5 src\main.o
+ *fill*         0x08005269        0x3 
+ .rodata        0x0800526c      0x1a8 ..\Libraries\libBSP.a(carme.o)
+ .rodata        0x08005414        0x8 ..\Libraries\libFreeRTOS.a(tasks.o)
+ .rodata        0x0800541c        0x8 ..\Libraries\libFreeRTOS.a(timers.o)
  *(.rodata*)
  .rodata.str1.1
-                0x08005008        0x2 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-impure.o)
- *fill*         0x0800500a        0x2 
+                0x08005424        0x2 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-impure.o)
+ *fill*         0x08005426        0x2 
  .rodata.ucExpectedStackBytes.8730
-                0x0800500c       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x08005428       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
  .rodata.heapSTRUCT_SIZE
-                0x08005020        0x2 ..\Libraries\libFreeRTOS.a(heap_4.o)
- *fill*         0x08005022        0x2 
+                0x0800543c        0x2 ..\Libraries\libFreeRTOS.a(heap_4.o)
+ *fill*         0x0800543e        0x2 
  .rodata.xTotalHeapSize
-                0x08005024        0x4 ..\Libraries\libFreeRTOS.a(heap_4.o)
+                0x08005440        0x4 ..\Libraries\libFreeRTOS.a(heap_4.o)
  .rodata.pcInterruptPriorityRegisters
-                0x08005028        0x4 ..\Libraries\libFreeRTOS.a(port.o)
+                0x08005444        0x4 ..\Libraries\libFreeRTOS.a(port.o)
  *(.glue_7)
- .glue_7        0x0800502c        0x0 linker stubs
+ .glue_7        0x08005448        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x0800502c        0x0 linker stubs
+ .glue_7t       0x08005448        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x0800502c        0x0 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
+ .eh_frame      0x08005448        0x0 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
  *(.init)
- .init          0x0800502c        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crti.o
-                0x0800502c                _init
- .init          0x08005030        0x8 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtn.o
+ .init          0x08005448        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crti.o
+                0x08005448                _init
+ .init          0x0800544c        0x8 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtn.o
  *(.fini)
- .fini          0x08005038        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crti.o
-                0x08005038                _fini
- .fini          0x0800503c        0x8 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtn.o
-                0x08005044                . = ALIGN (0x4)
-                0x08005044                _etext = .
+ .fini          0x08005454        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crti.o
+                0x08005454                _fini
+ .fini          0x08005458        0x8 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtn.o
+                0x08005460                . = ALIGN (0x4)
+                0x08005460                _etext = .
 
-.vfp11_veneer   0x08005044        0x0
- .vfp11_veneer  0x08005044        0x0 linker stubs
+.vfp11_veneer   0x08005460        0x0
+ .vfp11_veneer  0x08005460        0x0 linker stubs
 
-.v4_bx          0x08005044        0x0
- .v4_bx         0x08005044        0x0 linker stubs
+.v4_bx          0x08005460        0x0
+ .v4_bx         0x08005460        0x0 linker stubs
 
-.iplt           0x08005044        0x0
- .iplt          0x08005044        0x0 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
+.iplt           0x08005460        0x0
+ .iplt          0x08005460        0x0 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
 
-.rel.dyn        0x08005044        0x0
- .rel.iplt      0x08005044        0x0 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
+.rel.dyn        0x08005460        0x0
+ .rel.iplt      0x08005460        0x0 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x08005044        0x0
-                0x08005044                __exidx_start = .
+.ARM            0x08005460        0x0
+                0x08005460                __exidx_start = .
  *(.ARM.exidx*)
-                0x08005044                __exidx_end = .
+                0x08005460                __exidx_end = .
 
-.preinit_array  0x08005044        0x0
+.preinit_array  0x08005460        0x0
                 [!provide]                PROVIDE (__preinit_array_start, .)
  *(.preinit_array*)
                 [!provide]                PROVIDE (__preinit_array_end, .)
 
-.init_array     0x08005044        0x4
+.init_array     0x08005460        0x4
                 [!provide]                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  *(.init_array*)
- .init_array    0x08005044        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
+ .init_array    0x08005460        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
                 [!provide]                PROVIDE (__init_array_end, .)
 
-.fini_array     0x08005048        0x4
+.fini_array     0x08005464        0x4
                 [!provide]                PROVIDE (__fini_array_start, .)
  *(SORT(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x08005048        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
+ .fini_array    0x08005464        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
                 [!provide]                PROVIDE (__fini_array_end, .)
-                0x0800504c                _sidata = LOADADDR (.data)
+                0x08005468                _sidata = LOADADDR (.data)
 
-.data           0x20000000      0x914 load address 0x0800504c
+.data           0x20000000      0x914 load address 0x08005468
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _sdata = .
  *(.data)
@@ -1454,12 +1486,12 @@ LOAD ..\Libraries\libFreeRTOS.a
                 0x20000910        0x4 ..\Libraries\libFreeRTOS.a(port.o)
                 0x20000914                . = ALIGN (0x4)
                 0x20000914                _edata = .
-                0x08005960                _siccmram = LOADADDR (.ccmram)
+                0x08005d7c                _siccmram = LOADADDR (.ccmram)
 
-.igot.plt       0x20000914        0x0 load address 0x08005960
+.igot.plt       0x20000914        0x0 load address 0x08005d7c
  .igot.plt      0x20000914        0x0 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7e-m/fpu/crtbegin.o
 
-.ccmram         0x10000000        0x0 load address 0x08005960
+.ccmram         0x10000000        0x0 load address 0x08005d7c
                 0x10000000                . = ALIGN (0x4)
                 0x10000000                _sccmram = .
  *(.ccmram)
@@ -1468,7 +1500,7 @@ LOAD ..\Libraries\libFreeRTOS.a
                 0x10000000                _eccmram = .
                 0x10000000                . = ALIGN (0x4)
 
-.bss            0x20000914    0x12de4
+.bss            0x20000914    0x12ddc
                 0x20000914                _sbss = .
                 0x20000914                __bss_start__ = _sbss
  *(.bss)
@@ -1479,119 +1511,113 @@ LOAD ..\Libraries\libFreeRTOS.a
  .bss.xHandle_ETCSTask1
                 0x20000934        0x4 src\main.o
                 0x20000934                xHandle_ETCSTask1
- .bss.xHandle_ETCSTask2
-                0x20000938        0x4 src\main.o
-                0x20000938                xHandle_ETCSTask2
- .bss.xHandle_ETCSTask3
-                0x2000093c        0x4 src\main.o
-                0x2000093c                xHandle_ETCSTask3
  .bss.__malloc_sbrk_start
-                0x20000940        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-mallocr.o)
-                0x20000940                __malloc_sbrk_start
+                0x20000938        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-mallocr.o)
+                0x20000938                __malloc_sbrk_start
  .bss.__malloc_free_list
-                0x20000944        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-mallocr.o)
-                0x20000944                __malloc_free_list
+                0x2000093c        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-mallocr.o)
+                0x2000093c                __malloc_free_list
  .bss.CARME_CAN_IRQCallbacks
-                0x20000948       0x20 ..\Libraries\libBSP.a(can.o)
+                0x20000940       0x20 ..\Libraries\libBSP.a(can.o)
  .bss.BackColor
-                0x20000968        0x2 ..\Libraries\libsGUI.a(text.o)
-                0x20000968                BackColor
- *fill*         0x2000096a        0x2 
+                0x20000960        0x2 ..\Libraries\libsGUI.a(text.o)
+                0x20000960                BackColor
+ *fill*         0x20000962        0x2 
  .bss.pxCurrentTCB
-                0x2000096c        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
-                0x2000096c                pxCurrentTCB
+                0x20000964        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000964                pxCurrentTCB
  .bss.pxReadyTasksLists
-                0x20000970       0x64 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000968       0x64 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.xDelayedTaskList1
-                0x200009d4       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x200009cc       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.xDelayedTaskList2
-                0x200009e8       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x200009e0       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.pxDelayedTaskList
-                0x200009fc        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x200009f4        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.pxOverflowDelayedTaskList
-                0x20000a00        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x200009f8        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.xPendingReadyList
-                0x20000a04       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x200009fc       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.xTasksWaitingTermination
-                0x20000a18       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000a10       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.uxTasksDeleted
-                0x20000a2c        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000a24        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.xSuspendedTaskList
-                0x20000a30       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000a28       0x14 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.uxCurrentNumberOfTasks
-                0x20000a44        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000a3c        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.xTickCount
-                0x20000a48        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000a40        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.uxTopReadyPriority
-                0x20000a4c        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000a44        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.xSchedulerRunning
-                0x20000a50        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000a48        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.uxSchedulerSuspended
-                0x20000a54        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000a4c        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.uxPendedTicks
-                0x20000a58        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000a50        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.xYieldPending
-                0x20000a5c        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000a54        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.xNumOfOverflows
-                0x20000a60        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x20000a58        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
  .bss.uxTaskNumber
-                0x20000a64        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
- .bss.ucHeap    0x20000a68    0x12c00 ..\Libraries\libFreeRTOS.a(heap_4.o)
- .bss.xStart    0x20013668        0x8 ..\Libraries\libFreeRTOS.a(heap_4.o)
- .bss.pxEnd     0x20013670        0x4 ..\Libraries\libFreeRTOS.a(heap_4.o)
+                0x20000a5c        0x4 ..\Libraries\libFreeRTOS.a(tasks.o)
+ .bss.ucHeap    0x20000a60    0x12c00 ..\Libraries\libFreeRTOS.a(heap_4.o)
+ .bss.xStart    0x20013660        0x8 ..\Libraries\libFreeRTOS.a(heap_4.o)
+ .bss.pxEnd     0x20013668        0x4 ..\Libraries\libFreeRTOS.a(heap_4.o)
  .bss.xBlockAllocatedBit
-                0x20013674        0x4 ..\Libraries\libFreeRTOS.a(heap_4.o)
+                0x2001366c        0x4 ..\Libraries\libFreeRTOS.a(heap_4.o)
  .bss.ucMaxSysCallPriority
-                0x20013678        0x1 ..\Libraries\libFreeRTOS.a(port.o)
- *fill*         0x20013679        0x3 
+                0x20013670        0x1 ..\Libraries\libFreeRTOS.a(port.o)
+ *fill*         0x20013671        0x3 
  .bss.ulMaxPRIGROUPValue
-                0x2001367c        0x4 ..\Libraries\libFreeRTOS.a(port.o)
+                0x20013674        0x4 ..\Libraries\libFreeRTOS.a(port.o)
  .bss.xActiveTimerList1
-                0x20013680       0x14 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x20013678       0x14 ..\Libraries\libFreeRTOS.a(timers.o)
  .bss.xActiveTimerList2
-                0x20013694       0x14 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x2001368c       0x14 ..\Libraries\libFreeRTOS.a(timers.o)
  .bss.pxCurrentTimerList
-                0x200136a8        0x4 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x200136a0        0x4 ..\Libraries\libFreeRTOS.a(timers.o)
  .bss.pxOverflowTimerList
-                0x200136ac        0x4 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x200136a4        0x4 ..\Libraries\libFreeRTOS.a(timers.o)
  .bss.xTimerQueue
-                0x200136b0        0x4 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x200136a8        0x4 ..\Libraries\libFreeRTOS.a(timers.o)
  .bss.xLastTime.8575
-                0x200136b4        0x4 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x200136ac        0x4 ..\Libraries\libFreeRTOS.a(timers.o)
  *(COMMON)
- COMMON         0x200136b8       0x34 src\main.o
-                0x200136b8                ETCS_Task1_Parameter
-                0x200136bc                Muxtex_Roboter_Links
-                0x200136c0                Queue_Can_Rx
-                0x200136c4                Muxtex_Can_Rx
-                0x200136c8                Muxtex_Foederband_Links
-                0x200136cc                Muxtex_Foederband_Rechts
-                0x200136d0                ETCS_Task3_Parameter
-                0x200136d4                Muxtex_Roboter_Rechts
-                0x200136d8                Muxtex_Foederband_Mitte
-                0x200136dc                Muxtex_Can_Tx
-                0x200136e0                ETCS_Task2_Parameter
-                0x200136e4                Muxtex_Display
-                0x200136e8                Muxtex_Shifter
- COMMON         0x200136ec        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-reent.o)
-                0x200136ec                errno
- COMMON         0x200136f0        0x6 ..\Libraries\libBSP.a(ssd1963.o)
-                0x200136f0                deviceDescriptorBlock
-                0x200136f8                . = ALIGN (0x4)
- *fill*         0x200136f6        0x2 
-                0x200136f8                _ebss = .
-                0x200136f8                __bss_end__ = _ebss
+ COMMON         0x200136b0       0x34 src\main.o
+                0x200136b0                ETCS_Task1_Parameter
+                0x200136b4                Muxtex_Roboter_Links
+                0x200136b8                Queue_Can_Rx
+                0x200136bc                Muxtex_Can_Rx
+                0x200136c0                Muxtex_Foederband_Links
+                0x200136c4                Muxtex_Foederband_Rechts
+                0x200136c8                ETCS_Task3_Parameter
+                0x200136cc                Muxtex_Roboter_Rechts
+                0x200136d0                Muxtex_Foederband_Mitte
+                0x200136d4                Muxtex_Can_Tx
+                0x200136d8                ETCS_Task2_Parameter
+                0x200136dc                Muxtex_Display
+                0x200136e0                Muxtex_Shifter
+ COMMON         0x200136e4        0x4 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-reent.o)
+                0x200136e4                errno
+ COMMON         0x200136e8        0x6 ..\Libraries\libBSP.a(ssd1963.o)
+                0x200136e8                deviceDescriptorBlock
+                0x200136f0                . = ALIGN (0x4)
+ *fill*         0x200136ee        0x2 
+                0x200136f0                _ebss = .
+                0x200136f0                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x200136f8     0x2000
-                0x200136f8                . = ALIGN (0x4)
-                0x200136f8                PROVIDE (end, .)
+                0x200136f0     0x2000
+                0x200136f0                . = ALIGN (0x4)
+                0x200136f0                PROVIDE (end, .)
                 [!provide]                PROVIDE (_end, .)
-                0x200146f8                . = (. + _Min_Heap_Size)
- *fill*         0x200136f8     0x1000 
-                0x200156f8                . = (. + _Min_Stack_Size)
- *fill*         0x200146f8     0x1000 
-                0x200156f8                . = ALIGN (0x4)
+                0x200146f0                . = (. + _Min_Heap_Size)
+ *fill*         0x200136f0     0x1000 
+                0x200156f0                . = (. + _Min_Stack_Size)
+ *fill*         0x200146f0     0x1000 
+                0x200156f0                . = ALIGN (0x4)
 
 .memory_b1_text
  *(.mb1text)
@@ -1673,189 +1699,189 @@ LOAD ..\Libraries\libFreeRTOS.a
                 0x0000069d       0x3b ..\Libraries\libFreeRTOS.a(timers.o)
 OUTPUT(RoboterModel (Template).elf elf32-littlearm)
 
-.debug_info     0x00000000     0x9316
+.debug_info     0x00000000     0x9744
  .debug_info    0x00000000      0x7f1 src\syscalls.o
  .debug_info    0x000007f1       0x76 src\startup.o
- .debug_info    0x00000867      0x68a src\main.o
- .debug_info    0x00000ef1      0xf30 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
- .debug_info    0x00001e21      0x596 ..\Libraries\libBSP.a(misc.o)
- .debug_info    0x000023b7      0x62b ..\Libraries\libBSP.a(system_stm32f4xx.o)
- .debug_info    0x000029e2      0x379 ..\Libraries\libBSP.a(ssd1963.o)
- .debug_info    0x00002d5b      0x6f9 ..\Libraries\libBSP.a(carme.o)
- .debug_info    0x00003454      0xb92 ..\Libraries\libBSP.a(can.o)
- .debug_info    0x00003fe6      0x2a6 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
- .debug_info    0x0000428c      0x647 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
- .debug_info    0x000048d3      0x9b5 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
- .debug_info    0x00005288      0x368 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
- .debug_info    0x000055f0      0x3b9 ..\Libraries\libBSP.a(ssd1963_lld.o)
- .debug_info    0x000059a9      0x652 ..\Libraries\libsGUI.a(text.o)
- .debug_info    0x00005ffb      0x4b1 ..\Libraries\libsGUI.a(font.o)
- .debug_info    0x000064ac     0x11ba ..\Libraries\libFreeRTOS.a(tasks.o)
- .debug_info    0x00007666      0xbff ..\Libraries\libFreeRTOS.a(queue.o)
- .debug_info    0x00008265      0x302 ..\Libraries\libFreeRTOS.a(heap_4.o)
- .debug_info    0x00008567      0x363 ..\Libraries\libFreeRTOS.a(port.o)
- .debug_info    0x000088ca      0x2cc ..\Libraries\libFreeRTOS.a(list.o)
- .debug_info    0x00008b96      0x780 ..\Libraries\libFreeRTOS.a(timers.o)
+ .debug_info    0x00000867      0xab8 src\main.o
+ .debug_info    0x0000131f      0xf30 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
+ .debug_info    0x0000224f      0x596 ..\Libraries\libBSP.a(misc.o)
+ .debug_info    0x000027e5      0x62b ..\Libraries\libBSP.a(system_stm32f4xx.o)
+ .debug_info    0x00002e10      0x379 ..\Libraries\libBSP.a(ssd1963.o)
+ .debug_info    0x00003189      0x6f9 ..\Libraries\libBSP.a(carme.o)
+ .debug_info    0x00003882      0xb92 ..\Libraries\libBSP.a(can.o)
+ .debug_info    0x00004414      0x2a6 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
+ .debug_info    0x000046ba      0x647 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+ .debug_info    0x00004d01      0x9b5 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
+ .debug_info    0x000056b6      0x368 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
+ .debug_info    0x00005a1e      0x3b9 ..\Libraries\libBSP.a(ssd1963_lld.o)
+ .debug_info    0x00005dd7      0x652 ..\Libraries\libsGUI.a(text.o)
+ .debug_info    0x00006429      0x4b1 ..\Libraries\libsGUI.a(font.o)
+ .debug_info    0x000068da     0x11ba ..\Libraries\libFreeRTOS.a(tasks.o)
+ .debug_info    0x00007a94      0xbff ..\Libraries\libFreeRTOS.a(queue.o)
+ .debug_info    0x00008693      0x302 ..\Libraries\libFreeRTOS.a(heap_4.o)
+ .debug_info    0x00008995      0x363 ..\Libraries\libFreeRTOS.a(port.o)
+ .debug_info    0x00008cf8      0x2cc ..\Libraries\libFreeRTOS.a(list.o)
+ .debug_info    0x00008fc4      0x780 ..\Libraries\libFreeRTOS.a(timers.o)
 
-.debug_abbrev   0x00000000     0x202d
+.debug_abbrev   0x00000000     0x20ee
  .debug_abbrev  0x00000000      0x1f2 src\syscalls.o
  .debug_abbrev  0x000001f2       0x12 src\startup.o
- .debug_abbrev  0x00000204      0x14f src\main.o
- .debug_abbrev  0x00000353      0x1be ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
- .debug_abbrev  0x00000511      0x12b ..\Libraries\libBSP.a(misc.o)
- .debug_abbrev  0x0000063c      0x13a ..\Libraries\libBSP.a(system_stm32f4xx.o)
- .debug_abbrev  0x00000776      0x15e ..\Libraries\libBSP.a(ssd1963.o)
- .debug_abbrev  0x000008d4      0x1c2 ..\Libraries\libBSP.a(carme.o)
- .debug_abbrev  0x00000a96      0x228 ..\Libraries\libBSP.a(can.o)
- .debug_abbrev  0x00000cbe      0x135 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
- .debug_abbrev  0x00000df3      0x1a7 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
- .debug_abbrev  0x00000f9a      0x174 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
- .debug_abbrev  0x0000110e      0x1a9 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
- .debug_abbrev  0x000012b7      0x16f ..\Libraries\libBSP.a(ssd1963_lld.o)
- .debug_abbrev  0x00001426      0x189 ..\Libraries\libsGUI.a(text.o)
- .debug_abbrev  0x000015af       0x8c ..\Libraries\libsGUI.a(font.o)
- .debug_abbrev  0x0000163b      0x221 ..\Libraries\libFreeRTOS.a(tasks.o)
- .debug_abbrev  0x0000185c      0x1dc ..\Libraries\libFreeRTOS.a(queue.o)
- .debug_abbrev  0x00001a38      0x1b3 ..\Libraries\libFreeRTOS.a(heap_4.o)
- .debug_abbrev  0x00001beb      0x1e0 ..\Libraries\libFreeRTOS.a(port.o)
- .debug_abbrev  0x00001dcb       0xda ..\Libraries\libFreeRTOS.a(list.o)
- .debug_abbrev  0x00001ea5      0x188 ..\Libraries\libFreeRTOS.a(timers.o)
+ .debug_abbrev  0x00000204      0x210 src\main.o
+ .debug_abbrev  0x00000414      0x1be ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
+ .debug_abbrev  0x000005d2      0x12b ..\Libraries\libBSP.a(misc.o)
+ .debug_abbrev  0x000006fd      0x13a ..\Libraries\libBSP.a(system_stm32f4xx.o)
+ .debug_abbrev  0x00000837      0x15e ..\Libraries\libBSP.a(ssd1963.o)
+ .debug_abbrev  0x00000995      0x1c2 ..\Libraries\libBSP.a(carme.o)
+ .debug_abbrev  0x00000b57      0x228 ..\Libraries\libBSP.a(can.o)
+ .debug_abbrev  0x00000d7f      0x135 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
+ .debug_abbrev  0x00000eb4      0x1a7 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+ .debug_abbrev  0x0000105b      0x174 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
+ .debug_abbrev  0x000011cf      0x1a9 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
+ .debug_abbrev  0x00001378      0x16f ..\Libraries\libBSP.a(ssd1963_lld.o)
+ .debug_abbrev  0x000014e7      0x189 ..\Libraries\libsGUI.a(text.o)
+ .debug_abbrev  0x00001670       0x8c ..\Libraries\libsGUI.a(font.o)
+ .debug_abbrev  0x000016fc      0x221 ..\Libraries\libFreeRTOS.a(tasks.o)
+ .debug_abbrev  0x0000191d      0x1dc ..\Libraries\libFreeRTOS.a(queue.o)
+ .debug_abbrev  0x00001af9      0x1b3 ..\Libraries\libFreeRTOS.a(heap_4.o)
+ .debug_abbrev  0x00001cac      0x1e0 ..\Libraries\libFreeRTOS.a(port.o)
+ .debug_abbrev  0x00001e8c       0xda ..\Libraries\libFreeRTOS.a(list.o)
+ .debug_abbrev  0x00001f66      0x188 ..\Libraries\libFreeRTOS.a(timers.o)
 
-.debug_aranges  0x00000000      0xb88
+.debug_aranges  0x00000000      0xbe0
  .debug_aranges
                 0x00000000       0xb0 src\syscalls.o
  .debug_aranges
                 0x000000b0       0x28 src\startup.o
  .debug_aranges
-                0x000000d8       0x48 src\main.o
+                0x000000d8       0xa0 src\main.o
  .debug_aranges
-                0x00000120      0x1b8 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
+                0x00000178      0x1b8 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
  .debug_aranges
-                0x000002d8       0x40 ..\Libraries\libBSP.a(misc.o)
+                0x00000330       0x40 ..\Libraries\libBSP.a(misc.o)
  .debug_aranges
-                0x00000318       0x30 ..\Libraries\libBSP.a(system_stm32f4xx.o)
+                0x00000370       0x30 ..\Libraries\libBSP.a(system_stm32f4xx.o)
  .debug_aranges
-                0x00000348       0x80 ..\Libraries\libBSP.a(ssd1963.o)
+                0x000003a0       0x80 ..\Libraries\libBSP.a(ssd1963.o)
  .debug_aranges
-                0x000003c8       0x78 ..\Libraries\libBSP.a(carme.o)
+                0x00000420       0x78 ..\Libraries\libBSP.a(carme.o)
  .debug_aranges
-                0x00000440       0x90 ..\Libraries\libBSP.a(can.o)
+                0x00000498       0x90 ..\Libraries\libBSP.a(can.o)
  .debug_aranges
-                0x000004d0       0x50 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
+                0x00000528       0x50 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
  .debug_aranges
-                0x00000520       0x88 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+                0x00000578       0x88 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
  .debug_aranges
-                0x000005a8       0xb0 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
+                0x00000600       0xb0 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
  .debug_aranges
-                0x00000658       0x58 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
+                0x000006b0       0x58 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
  .debug_aranges
-                0x000006b0       0x38 ..\Libraries\libBSP.a(ssd1963_lld.o)
+                0x00000708       0x38 ..\Libraries\libBSP.a(ssd1963_lld.o)
  .debug_aranges
-                0x000006e8       0x80 ..\Libraries\libsGUI.a(text.o)
+                0x00000740       0x80 ..\Libraries\libsGUI.a(text.o)
  .debug_aranges
-                0x00000768       0x18 ..\Libraries\libsGUI.a(font.o)
+                0x000007c0       0x18 ..\Libraries\libsGUI.a(font.o)
  .debug_aranges
-                0x00000780      0x168 ..\Libraries\libFreeRTOS.a(tasks.o)
+                0x000007d8      0x168 ..\Libraries\libFreeRTOS.a(tasks.o)
  .debug_aranges
-                0x000008e8       0xf8 ..\Libraries\libFreeRTOS.a(queue.o)
+                0x00000940       0xf8 ..\Libraries\libFreeRTOS.a(queue.o)
  .debug_aranges
-                0x000009e0       0x48 ..\Libraries\libFreeRTOS.a(heap_4.o)
+                0x00000a38       0x48 ..\Libraries\libFreeRTOS.a(heap_4.o)
  .debug_aranges
-                0x00000a28       0x98 ..\Libraries\libFreeRTOS.a(port.o)
+                0x00000a80       0x98 ..\Libraries\libFreeRTOS.a(port.o)
  .debug_aranges
-                0x00000ac0       0x40 ..\Libraries\libFreeRTOS.a(list.o)
+                0x00000b18       0x40 ..\Libraries\libFreeRTOS.a(list.o)
  .debug_aranges
-                0x00000b00       0x88 ..\Libraries\libFreeRTOS.a(timers.o)
+                0x00000b58       0x88 ..\Libraries\libFreeRTOS.a(timers.o)
 
-.debug_ranges   0x00000000      0xa28
+.debug_ranges   0x00000000      0xb58
  .debug_ranges  0x00000000       0xa0 src\syscalls.o
  .debug_ranges  0x000000a0       0x20 src\startup.o
- .debug_ranges  0x000000c0       0x38 src\main.o
- .debug_ranges  0x000000f8      0x1a8 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
- .debug_ranges  0x000002a0       0x30 ..\Libraries\libBSP.a(misc.o)
- .debug_ranges  0x000002d0       0x20 ..\Libraries\libBSP.a(system_stm32f4xx.o)
- .debug_ranges  0x000002f0       0x70 ..\Libraries\libBSP.a(ssd1963.o)
- .debug_ranges  0x00000360       0x68 ..\Libraries\libBSP.a(carme.o)
- .debug_ranges  0x000003c8       0x80 ..\Libraries\libBSP.a(can.o)
- .debug_ranges  0x00000448       0x40 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
- .debug_ranges  0x00000488       0x78 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
- .debug_ranges  0x00000500       0xa0 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
- .debug_ranges  0x000005a0       0x48 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
- .debug_ranges  0x000005e8       0x28 ..\Libraries\libBSP.a(ssd1963_lld.o)
- .debug_ranges  0x00000610       0x70 ..\Libraries\libsGUI.a(text.o)
- .debug_ranges  0x00000680      0x158 ..\Libraries\libFreeRTOS.a(tasks.o)
- .debug_ranges  0x000007d8       0xe8 ..\Libraries\libFreeRTOS.a(queue.o)
- .debug_ranges  0x000008c0       0x38 ..\Libraries\libFreeRTOS.a(heap_4.o)
- .debug_ranges  0x000008f8       0x88 ..\Libraries\libFreeRTOS.a(port.o)
- .debug_ranges  0x00000980       0x30 ..\Libraries\libFreeRTOS.a(list.o)
- .debug_ranges  0x000009b0       0x78 ..\Libraries\libFreeRTOS.a(timers.o)
+ .debug_ranges  0x000000c0      0x168 src\main.o
+ .debug_ranges  0x00000228      0x1a8 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
+ .debug_ranges  0x000003d0       0x30 ..\Libraries\libBSP.a(misc.o)
+ .debug_ranges  0x00000400       0x20 ..\Libraries\libBSP.a(system_stm32f4xx.o)
+ .debug_ranges  0x00000420       0x70 ..\Libraries\libBSP.a(ssd1963.o)
+ .debug_ranges  0x00000490       0x68 ..\Libraries\libBSP.a(carme.o)
+ .debug_ranges  0x000004f8       0x80 ..\Libraries\libBSP.a(can.o)
+ .debug_ranges  0x00000578       0x40 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
+ .debug_ranges  0x000005b8       0x78 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+ .debug_ranges  0x00000630       0xa0 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
+ .debug_ranges  0x000006d0       0x48 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
+ .debug_ranges  0x00000718       0x28 ..\Libraries\libBSP.a(ssd1963_lld.o)
+ .debug_ranges  0x00000740       0x70 ..\Libraries\libsGUI.a(text.o)
+ .debug_ranges  0x000007b0      0x158 ..\Libraries\libFreeRTOS.a(tasks.o)
+ .debug_ranges  0x00000908       0xe8 ..\Libraries\libFreeRTOS.a(queue.o)
+ .debug_ranges  0x000009f0       0x38 ..\Libraries\libFreeRTOS.a(heap_4.o)
+ .debug_ranges  0x00000a28       0x88 ..\Libraries\libFreeRTOS.a(port.o)
+ .debug_ranges  0x00000ab0       0x30 ..\Libraries\libFreeRTOS.a(list.o)
+ .debug_ranges  0x00000ae0       0x78 ..\Libraries\libFreeRTOS.a(timers.o)
 
-.debug_line     0x00000000     0x4c9a
+.debug_line     0x00000000     0x4e24
  .debug_line    0x00000000      0x300 src\syscalls.o
  .debug_line    0x00000300       0x79 src\startup.o
- .debug_line    0x00000379      0x29c src\main.o
- .debug_line    0x00000615      0x61d ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
- .debug_line    0x00000c32      0x21f ..\Libraries\libBSP.a(misc.o)
- .debug_line    0x00000e51      0x1f7 ..\Libraries\libBSP.a(system_stm32f4xx.o)
- .debug_line    0x00001048      0x230 ..\Libraries\libBSP.a(ssd1963.o)
- .debug_line    0x00001278      0x5b2 ..\Libraries\libBSP.a(carme.o)
- .debug_line    0x0000182a      0x423 ..\Libraries\libBSP.a(can.o)
- .debug_line    0x00001c4d      0x203 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
- .debug_line    0x00001e50      0x31f ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
- .debug_line    0x0000216f      0x430 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
- .debug_line    0x0000259f      0x276 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
- .debug_line    0x00002815      0x241 ..\Libraries\libBSP.a(ssd1963_lld.o)
- .debug_line    0x00002a56      0x28a ..\Libraries\libsGUI.a(text.o)
- .debug_line    0x00002ce0       0xf9 ..\Libraries\libsGUI.a(font.o)
- .debug_line    0x00002dd9      0xa59 ..\Libraries\libFreeRTOS.a(tasks.o)
- .debug_line    0x00003832      0x7e9 ..\Libraries\libFreeRTOS.a(queue.o)
- .debug_line    0x0000401b      0x28f ..\Libraries\libFreeRTOS.a(heap_4.o)
- .debug_line    0x000042aa      0x3c1 ..\Libraries\libFreeRTOS.a(port.o)
- .debug_line    0x0000466b      0x24f ..\Libraries\libFreeRTOS.a(list.o)
- .debug_line    0x000048ba      0x3e0 ..\Libraries\libFreeRTOS.a(timers.o)
+ .debug_line    0x00000379      0x426 src\main.o
+ .debug_line    0x0000079f      0x61d ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
+ .debug_line    0x00000dbc      0x21f ..\Libraries\libBSP.a(misc.o)
+ .debug_line    0x00000fdb      0x1f7 ..\Libraries\libBSP.a(system_stm32f4xx.o)
+ .debug_line    0x000011d2      0x230 ..\Libraries\libBSP.a(ssd1963.o)
+ .debug_line    0x00001402      0x5b2 ..\Libraries\libBSP.a(carme.o)
+ .debug_line    0x000019b4      0x423 ..\Libraries\libBSP.a(can.o)
+ .debug_line    0x00001dd7      0x203 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
+ .debug_line    0x00001fda      0x31f ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+ .debug_line    0x000022f9      0x430 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
+ .debug_line    0x00002729      0x276 ..\Libraries\libBSP.a(stm32f4xx_exti.o)
+ .debug_line    0x0000299f      0x241 ..\Libraries\libBSP.a(ssd1963_lld.o)
+ .debug_line    0x00002be0      0x28a ..\Libraries\libsGUI.a(text.o)
+ .debug_line    0x00002e6a       0xf9 ..\Libraries\libsGUI.a(font.o)
+ .debug_line    0x00002f63      0xa59 ..\Libraries\libFreeRTOS.a(tasks.o)
+ .debug_line    0x000039bc      0x7e9 ..\Libraries\libFreeRTOS.a(queue.o)
+ .debug_line    0x000041a5      0x28f ..\Libraries\libFreeRTOS.a(heap_4.o)
+ .debug_line    0x00004434      0x3c1 ..\Libraries\libFreeRTOS.a(port.o)
+ .debug_line    0x000047f5      0x24f ..\Libraries\libFreeRTOS.a(list.o)
+ .debug_line    0x00004a44      0x3e0 ..\Libraries\libFreeRTOS.a(timers.o)
 
-.debug_str      0x00000000     0x4252
+.debug_str      0x00000000     0x4334
  .debug_str     0x00000000      0x3f9 src\syscalls.o
                                 0x487 (size before relaxing)
- .debug_str     0x000003f9      0x4db src\main.o
-                                0x6dc (size before relaxing)
- .debug_str     0x000008d4      0x807 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
+ .debug_str     0x000003f9      0x5bd src\main.o
+                                0x7cb (size before relaxing)
+ .debug_str     0x000009b6      0x807 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
                                 0x943 (size before relaxing)
- .debug_str     0x000010db      0x1fe ..\Libraries\libBSP.a(misc.o)
+ .debug_str     0x000011bd      0x1fe ..\Libraries\libBSP.a(misc.o)
                                 0x387 (size before relaxing)
- .debug_str     0x000012d9       0xa5 ..\Libraries\libBSP.a(system_stm32f4xx.o)
+ .debug_str     0x000013bb       0xa5 ..\Libraries\libBSP.a(system_stm32f4xx.o)
                                 0x36d (size before relaxing)
- .debug_str     0x0000137e      0x148 ..\Libraries\libBSP.a(ssd1963.o)
+ .debug_str     0x00001460      0x148 ..\Libraries\libBSP.a(ssd1963.o)
                                 0x269 (size before relaxing)
- .debug_str     0x000014c6      0x4f3 ..\Libraries\libBSP.a(carme.o)
+ .debug_str     0x000015a8      0x4f3 ..\Libraries\libBSP.a(carme.o)
                                 0x69a (size before relaxing)
- .debug_str     0x000019b9      0x826 ..\Libraries\libBSP.a(can.o)
+ .debug_str     0x00001a9b      0x826 ..\Libraries\libBSP.a(can.o)
                                 0xd34 (size before relaxing)
- .debug_str     0x000021df      0x15c ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
+ .debug_str     0x000022c1      0x15c ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
                                 0x2c7 (size before relaxing)
- .debug_str     0x0000233b      0x137 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+ .debug_str     0x0000241d      0x137 ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
                                 0x451 (size before relaxing)
- .debug_str     0x00002472      0x3c0 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
+ .debug_str     0x00002554      0x3c0 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
                                 0x742 (size before relaxing)
- .debug_str     0x00002832       0xcf ..\Libraries\libBSP.a(stm32f4xx_exti.o)
+ .debug_str     0x00002914       0xcf ..\Libraries\libBSP.a(stm32f4xx_exti.o)
                                 0x30f (size before relaxing)
- .debug_str     0x00002901       0x7c ..\Libraries\libBSP.a(ssd1963_lld.o)
+ .debug_str     0x000029e3       0x7c ..\Libraries\libBSP.a(ssd1963_lld.o)
                                 0x387 (size before relaxing)
- .debug_str     0x0000297d      0x166 ..\Libraries\libsGUI.a(text.o)
+ .debug_str     0x00002a5f      0x166 ..\Libraries\libsGUI.a(text.o)
                                 0x399 (size before relaxing)
- .debug_str     0x00002ae3      0x16b ..\Libraries\libsGUI.a(font.o)
+ .debug_str     0x00002bc5      0x16b ..\Libraries\libsGUI.a(font.o)
                                 0x393 (size before relaxing)
- .debug_str     0x00002c4e      0x9ca ..\Libraries\libFreeRTOS.a(tasks.o)
+ .debug_str     0x00002d30      0x9ca ..\Libraries\libFreeRTOS.a(tasks.o)
                                 0xafc (size before relaxing)
- .debug_str     0x00003618      0x45c ..\Libraries\libFreeRTOS.a(queue.o)
+ .debug_str     0x000036fa      0x45c ..\Libraries\libFreeRTOS.a(queue.o)
                                 0x6c9 (size before relaxing)
- .debug_str     0x00003a74      0x1c9 ..\Libraries\libFreeRTOS.a(heap_4.o)
+ .debug_str     0x00003b56      0x1c9 ..\Libraries\libFreeRTOS.a(heap_4.o)
                                 0x2f7 (size before relaxing)
- .debug_str     0x00003c3d      0x238 ..\Libraries\libFreeRTOS.a(port.o)
+ .debug_str     0x00003d1f      0x238 ..\Libraries\libFreeRTOS.a(port.o)
                                 0x3ab (size before relaxing)
- .debug_str     0x00003e75       0x9c ..\Libraries\libFreeRTOS.a(list.o)
+ .debug_str     0x00003f57       0x9c ..\Libraries\libFreeRTOS.a(list.o)
                                 0x273 (size before relaxing)
- .debug_str     0x00003f11      0x341 ..\Libraries\libFreeRTOS.a(timers.o)
+ .debug_str     0x00003ff3      0x341 ..\Libraries\libFreeRTOS.a(timers.o)
                                 0x581 (size before relaxing)
 
 .comment        0x00000000      0x100
@@ -1883,33 +1909,33 @@ OUTPUT(RoboterModel (Template).elf elf32-littlearm)
  .comment       0x00000100       0x83 ..\Libraries\libFreeRTOS.a(list.o)
  .comment       0x00000100       0x83 ..\Libraries\libFreeRTOS.a(timers.o)
 
-.debug_frame    0x00000000     0x259c
+.debug_frame    0x00000000     0x2728
  .debug_frame   0x00000000      0x2ec src\syscalls.o
- .debug_frame   0x000002ec       0xd8 src\main.o
- .debug_frame   0x000003c4       0x30 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-malloc.o)
- .debug_frame   0x000003f4       0x38 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-freer.o)
- .debug_frame   0x0000042c       0x2c c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x00000458       0x5c c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-reent.o)
- .debug_frame   0x000004b4       0x2c c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-sbrkr.o)
- .debug_frame   0x000004e0       0x30 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-mlock.o)
- .debug_frame   0x00000510      0x5b8 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
- .debug_frame   0x00000ac8       0x9c ..\Libraries\libBSP.a(misc.o)
- .debug_frame   0x00000b64       0x64 ..\Libraries\libBSP.a(system_stm32f4xx.o)
- .debug_frame   0x00000bc8      0x19c ..\Libraries\libBSP.a(ssd1963.o)
- .debug_frame   0x00000d64      0x178 ..\Libraries\libBSP.a(carme.o)
- .debug_frame   0x00000edc      0x1e0 ..\Libraries\libBSP.a(can.o)
- .debug_frame   0x000010bc       0xd8 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
- .debug_frame   0x00001194      0x19c ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
- .debug_frame   0x00001330      0x220 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
- .debug_frame   0x00001550       0xec ..\Libraries\libBSP.a(stm32f4xx_exti.o)
- .debug_frame   0x0000163c       0x80 ..\Libraries\libBSP.a(ssd1963_lld.o)
- .debug_frame   0x000016bc      0x1a4 ..\Libraries\libsGUI.a(text.o)
- .debug_frame   0x00001860      0x520 ..\Libraries\libFreeRTOS.a(tasks.o)
- .debug_frame   0x00001d80      0x37c ..\Libraries\libFreeRTOS.a(queue.o)
- .debug_frame   0x000020fc       0xbc ..\Libraries\libFreeRTOS.a(heap_4.o)
- .debug_frame   0x000021b8      0x184 ..\Libraries\libFreeRTOS.a(port.o)
- .debug_frame   0x0000233c       0x9c ..\Libraries\libFreeRTOS.a(list.o)
- .debug_frame   0x000023d8      0x1c4 ..\Libraries\libFreeRTOS.a(timers.o)
+ .debug_frame   0x000002ec      0x264 src\main.o
+ .debug_frame   0x00000550       0x30 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-malloc.o)
+ .debug_frame   0x00000580       0x38 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x000005b8       0x2c c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x000005e4       0x5c c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-reent.o)
+ .debug_frame   0x00000640       0x2c c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x0000066c       0x30 c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-mlock.o)
+ .debug_frame   0x0000069c      0x5b8 ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
+ .debug_frame   0x00000c54       0x9c ..\Libraries\libBSP.a(misc.o)
+ .debug_frame   0x00000cf0       0x64 ..\Libraries\libBSP.a(system_stm32f4xx.o)
+ .debug_frame   0x00000d54      0x19c ..\Libraries\libBSP.a(ssd1963.o)
+ .debug_frame   0x00000ef0      0x178 ..\Libraries\libBSP.a(carme.o)
+ .debug_frame   0x00001068      0x1e0 ..\Libraries\libBSP.a(can.o)
+ .debug_frame   0x00001248       0xd8 ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
+ .debug_frame   0x00001320      0x19c ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
+ .debug_frame   0x000014bc      0x220 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
+ .debug_frame   0x000016dc       0xec ..\Libraries\libBSP.a(stm32f4xx_exti.o)
+ .debug_frame   0x000017c8       0x80 ..\Libraries\libBSP.a(ssd1963_lld.o)
+ .debug_frame   0x00001848      0x1a4 ..\Libraries\libsGUI.a(text.o)
+ .debug_frame   0x000019ec      0x520 ..\Libraries\libFreeRTOS.a(tasks.o)
+ .debug_frame   0x00001f0c      0x37c ..\Libraries\libFreeRTOS.a(queue.o)
+ .debug_frame   0x00002288       0xbc ..\Libraries\libFreeRTOS.a(heap_4.o)
+ .debug_frame   0x00002344      0x184 ..\Libraries\libFreeRTOS.a(port.o)
+ .debug_frame   0x000024c8       0x9c ..\Libraries\libFreeRTOS.a(list.o)
+ .debug_frame   0x00002564      0x1c4 ..\Libraries\libFreeRTOS.a(timers.o)
 
 .debug_loc      0x00000000     0x398a
  .debug_loc     0x00000000      0xb3c ..\Libraries\libBSP.a(stm32f4xx_rcc.o)
@@ -2043,6 +2069,9 @@ FSMC_PCCARDCmd                                    ..\Libraries\libBSP.a(stm32f4x
 FSMC_PCCARDDeInit                                 ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
 FSMC_PCCARDInit                                   ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
 FSMC_PCCARDStructInit                             ..\Libraries\libBSP.a(stm32f4xx_fsmc.o)
+FoedLinks                                         src\main.o
+FoedMitte                                         src\main.o
+FoedRechts                                        src\main.o
 GPIO_DeInit                                       ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
                                                   ..\Libraries\libBSP.a(carme.o)
 GPIO_Init                                         ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
@@ -2067,6 +2096,7 @@ GPIO_Write                                        ..\Libraries\libBSP.a(stm32f4x
 GPIO_WriteBit                                     ..\Libraries\libBSP.a(stm32f4xx_gpio.o)
                                                   ..\Libraries\libBSP.a(ssd1963_lld.o)
                                                   ..\Libraries\libBSP.a(carme.o)
+Give_Semaphore                                    src\main.o
 HASH_RNG_IRQHandler                               src\startup.o
 HardFault_Handler                                 src\startup.o
 I2C1_ER_IRQHandler                                src\startup.o
@@ -2184,6 +2214,8 @@ RCC_WaitForHSEStartUp                             ..\Libraries\libBSP.a(stm32f4x
 RTC_Alarm_IRQHandler                              src\startup.o
 RTC_WKUP_IRQHandler                               src\startup.o
 Reset_Handler                                     src\startup.o
+RobLinks                                          src\main.o
+RobRechts                                         src\main.o
 SDIO_IRQHandler                                   src\startup.o
 SPI1_IRQHandler                                   src\startup.o
 SPI2_IRQHandler                                   src\startup.o
@@ -2222,6 +2254,7 @@ SYSCFG_EXTILineConfig                             ..\Libraries\libBSP.a(stm32f4x
 SYSCFG_GetCompensationCellStatus                  ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
 SYSCFG_MemoryRemapConfig                          ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
 SYSCFG_MemorySwappingBank                         ..\Libraries\libBSP.a(stm32f4xx_syscfg.o)
+Shifter                                           src\main.o
 SysTick_CLKSourceConfig                           ..\Libraries\libBSP.a(misc.o)
 SysTick_Handler                                   ..\Libraries\libFreeRTOS.a(port.o)
                                                   src\startup.o
@@ -2245,6 +2278,7 @@ TIM8_BRK_TIM12_IRQHandler                         src\startup.o
 TIM8_CC_IRQHandler                                src\startup.o
 TIM8_TRG_COM_TIM14_IRQHandler                     src\startup.o
 TIM8_UP_TIM13_IRQHandler                          src\startup.o
+Take_Semaphore                                    src\main.o
 Task1Name                                         src\main.o
 Task2Name                                         src\main.o
 Task3Name                                         src\main.o
@@ -2483,6 +2517,9 @@ fputs                                             src\tiny_printf.o
 free                                              c:/apps/atollic/truestudio for arm 5.5.1/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7e-m/fpu\libc_nano.a(lib_a-malloc.o)
                                                   src\main.o
 g_pfnVectors                                      src\startup.o
+getYPos_Foed_Links                                src\main.o
+getYPos_Foed_Mitte                                src\main.o
+getYPos_Foed_Rechts                               src\main.o
 initialise_monitor_handles                        src\syscalls.o
 iprintf                                           src\tiny_printf.o
 main                                              src\main.o

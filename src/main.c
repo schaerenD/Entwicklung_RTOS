@@ -62,6 +62,18 @@ void sendCanMessage    (void *);
 void writeCanMessage   (void *);
 void readCanMessageIRQ (void);
 
+char getYPos_Foed_Mitte(void);
+char getYPos_Foed_Rechts(void);
+char getYPos_Foed_Links(void);
+void RobRechts(void);
+void RobLinks(void);
+void FoedLinks(void);
+void FoedRechts(void);
+void FoedMitte(void);
+void Shifter(char);
+
+
+
 /*----- Data ---------------------------------------------------------------*/
 xSemaphoreHandle Muxtex_Can_Tx;
 xSemaphoreHandle Muxtex_Can_Rx;
@@ -159,9 +171,9 @@ void TestTask (void *pvData) {
 
 
 	/* Übergabe der Werte logisch und Gültig */
-	if((u8_Pfad == Pfad_Links) && ((u8_Lokalisation == Lok_Roboter_Rechts)||(u8_Lokalisation == Lok_Foederband_Rechts)))
+	if((u8_Pfad == Pfad_Links) && ((u8_Start_Lokalisation == Lok_Roboter_Rechts)||(u8_Start_Lokalisation == Lok_Foederband_Rechts)))
 	{/* Nix Gut */}
-	else if ((u8_Pfad == Pfad_Rechts) && ((u8_Lokalisation == Lok_Roboter_Links)||(u8_Lokalisation == Lok_Foederband_Links)))
+	else if ((u8_Pfad == Pfad_Rechts) && ((u8_Start_Lokalisation == Lok_Roboter_Links)||(u8_Start_Lokalisation == Lok_Foederband_Links)))
 	{/* Nix Gut */}
 	else
 	{/* Alles Gut */ u8_State = Lok_Fehler;}
@@ -179,7 +191,9 @@ void TestTask (void *pvData) {
 
 
 		switch(u8_State)
+		{
 			case Lok_Init:
+
 				// Mögliche Startpositionen
 				if (u8_Start_Lokalisation == Lok_Foederband_Mitte) // Position Föderband Mitte
 				{
@@ -204,7 +218,7 @@ void TestTask (void *pvData) {
 					}
 					else
 					{
-						u8_State = Lok_Init;
+						u8_State = Lok_Init;// Warte auf Semaphore
 					}
 				}
 				else if (u8_Start_Lokalisation == Lok_Foederband_Links) // Position Föderband Links
@@ -217,12 +231,12 @@ void TestTask (void *pvData) {
 					}
 					else
 					{
-						u8_State = Lok_Init;
+						u8_State = Lok_Init;// Warte auf Semaphore
 					}
 				}
 				else // Position im Nirevana
 				{
-					string = "Fehler_Nirevana";
+					//string = "Fehler_Nirevana";
 					LCD_DisplayStringXY(30, 30, string);//Displays Error
 				}
 
@@ -233,6 +247,19 @@ void TestTask (void *pvData) {
 				// Shifter wechseln
 				if(Take_Semaphore(Muxtex_Foederband_Links))
 				{
+					// Auto Pfadwechsel
+					if((u8_AutoPfadWechsel == wahr) && (u8_Pfad == Pfad_Rechts))
+					{
+						u8_Pfad = Pfad_Links; //Auf Linken Pfad wechseln
+					}
+					else if((u8_AutoPfadWechsel == wahr) && (u8_Pfad == Pfad_Links))
+					{
+						u8_Pfad = Pfad_Rechts; //Auf Rechten Pfad wechseln
+					}
+
+					// Shifter ausführen
+					Shifter(u8_Pfad);
+
 					//Semaphore Freigeben von den Robotern
 					if(u8_LastState == Lok_Roboter_Rechts)
 					{
@@ -247,100 +274,102 @@ void TestTask (void *pvData) {
 						// Letzter State war Init!
 					}
 
-					// Auto Pfadwechsel
-					if((u8_AutoPfadWechsel == wahr) && (u8_Pfad == Pfad_Rechts))
-					{
-						u8_Pfad = Pfad_Links; //Auf Linken Pfad wechseln
-					}
-					else if((u8_AutoPfadWechsel == wahr) && (u8_Pfad == Pfad_Links))
-					{
-						u8_Pfad = Pfad_Rechts; //Auf Rechten Pfad wechseln
-					}
-
-					// Shifter ausführen
-					if(u8_Pfad == Pfad_Rechts)
-					{
-						ShifterRechts();
-						u8_State = Lok_Foederband_Rechts;
-						u8_LastState = Lok_Foederband_Mitte;
-					}
-					else
-					{
-						ShifterLinks();
-						u8_State = Lok_Foederband_Links;
-						u8_LastState = Lok_Foederband_Mitte;
-					}
+					// State wechseln
+					u8_State = Lok_Shifter;
+					u8_LastState = Lok_Foederband_Mitte;
 
 				}
 				else
 				{
-					//Warte auf Semaphore
+					u8_State = Lok_Foederband_Mitte; //Warte auf Semaphore
 				}
 
 			break;
 
 			case Lok_Foederband_Rechts:
-				if(Take_Semaphore(Muxtex_Roboter_Rechts))
+				if(Take_Semaphore(Muxtex_Roboter_Rechts))//Semaphore Roboter Rechts nehmen
 				{
+
+					RobRechts();//Roboter Rechts steuern
 					Give_Semaphore(Muxtex_Shifter); // Semaphore vom shifter zurückgeben
-					//Semaphore Roboter Rechts nehmen
-					//Roboter Rechts steuern
+					u8_State = Lok_Roboter_Rechts;
+					u8_LastState = Lok_Foederband_Rechts;
 				}
-				else if()
+				else
 				{
-					//Semaphore Roboter Rechts nehmen
-					//Roboter Rechts steuern
+					u8_State = Lok_Foederband_Rechts;// Warte auf Semaphore
 				}
 			break;
 
 			case Lok_Foederband_Links:
-				if()
+				if(Take_Semaphore(Muxtex_Roboter_Rechts))//Semaphore Roboter Links nehmen
 				{
-					//Warten bis Föderband bei Distanz ankommt
+
+					RobRechts();//Roboter Links steuern
+					Give_Semaphore(Muxtex_Shifter); // Semaphore vom shifter zurückgeben
+					u8_State = Lok_Roboter_Links;
+					u8_LastState = Lok_Foederband_Links;
 				}
-				else if()
+				else
 				{
-					//Semaphore Roboter Rechts nehmen
-					//Roboter Rechts steuern
+					u8_State = Lok_Foederband_Links;// Warte auf Semaphore
 				}
 			break;
 
 			case Lok_Shifter:
-				if()
+				if((u8_Pfad == Pfad_Rechts) && Take_Semaphore(Muxtex_Foederband_Rechts))
 				{
-					// Warten bis Shifter fertig
+					FoedRechts();
+					Give_Semaphore(Muxtex_Foederband_Mitte);
+					u8_State = Lok_Foederband_Rechts;
+					u8_LastState = Lok_Shifter;
 				}
-				else if()
+				else if((u8_Pfad == Pfad_Links) && Take_Semaphore(Muxtex_Foederband_Links))
 				{
-
+					FoedLinks();
+					Give_Semaphore(Muxtex_Foederband_Mitte);
+					u8_State = Lok_Foederband_Links;
+					u8_LastState = Lok_Shifter;
+				}
+				else
+				{
+					//Warte auf die Semaphore
 				}
 			break;
 
 			case Lok_Roboter_Rechts:
-				if()
+				if(Take_Semaphore(Muxtex_Roboter_Rechts))//Semaphore Roboter Rechts nehmen
 				{
-
+					FoedMitte();//Mittleres Foederband ansteuern
+					Give_Semaphore(Muxtex_Foederband_Rechts); // Semaphore vom Vom Föderband zurückgeben
+					u8_State = Lok_Foederband_Mitte;
+					u8_LastState = Lok_Roboter_Rechts;
 				}
-				else if()
+				else
 				{
-
+					u8_State = Lok_Roboter_Rechts; // Warte auf Semaphore
 				}
 			break;
 
 			case Lok_Roboter_Links:
-				if()
+				if(Take_Semaphore(Muxtex_Roboter_Links))//Semaphore Roboter Links nehmen
 				{
 
+					FoedMitte();//Mittleres Foederband ansteuern
+					Give_Semaphore(Muxtex_Foederband_Rechts); // Semaphore vom Vom Föderband zurückgeben
+					u8_State = Lok_Foederband_Mitte;
+					u8_LastState = Lok_Roboter_Links;
 				}
-				else if()
+				else
 				{
-
+					u8_State = Lok_Roboter_Links; // Warte auf Semaphore
 				}
 			break;
 
 			default:
 
 			break;
+		}
 
 		// End State Machine
 
@@ -372,22 +401,24 @@ void sendCanMessage (void *pvargs) {
 }
 
 
-char Take_Semaphore (xSemaphoreHandle Muxtex_Semaphore, int i16_Semaphor_Timer) {
-	char string[] = "RobRechts";
-	resultTake = xSemaphoreTake(Muxtex_Semaphore, i16_Semaphor_Timer); // Semaphore nehmen vom Föderband
+int Take_Semaphore(xSemaphoreHandle Muxtex_Semaphore, int i16_Timeout) {
+	char string[] = "BLABLA";
+	char resultTake = 0;
+	resultTake = xSemaphoreTake(Muxtex_Semaphore, i16_Timeout); // Semaphore nehmen vom Föderband
 	if(resultTake != 0)
 	{
 		//string = "Sem_Ok";
+		//LCD_DisplayStringXY(40, 30, string);
 		return 1;
 	}
 	else
 	{
 		//string = "Sem_Besetzt";
+		//LCD_DisplayStringXY(40, 30, string);
 		return 0;
 	}
-	LCD_DisplayStringXY(40, 30, string);
 }
-void give_Semaphore (xSemaphoreHandle Muxtex_Semaphore) {
+void Give_Semaphore (xSemaphoreHandle Muxtex_Semaphore) {
 	char string[] = "Sem_Zurueck";
 	xSemaphoreGive(Muxtex_Semaphore) ;
 	LCD_DisplayStringXY(50, 30, string);
@@ -427,12 +458,8 @@ void FoedMitte () {
 	char string[] = "FoedMitte";
 	LCD_DisplayStringXY(50, 30, string);
 }
-void ShifterLinks () {
-	char string[] = "ShifterLinks";
-	LCD_DisplayStringXY(50, 30, string);
-}
-void ShifterRechts() {
-	char string[] = "ShifterRechts";
+void Shifter(char Pfad) {
+	char string[] = "Shifter";
 	LCD_DisplayStringXY(50, 30, string);
 }
 /**
